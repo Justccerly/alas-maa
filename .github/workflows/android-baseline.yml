@@ -1,0 +1,65 @@
+name: Android baseline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  assemble-debug:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out alas-maa
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android build dependencies
+        shell: bash
+        run: |
+          sdkmanager "platform-tools" "platforms;android-37" "build-tools;36.0.0" "ndk;28.2.13676358"
+
+      - name: Restore Gradle caches
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Fetch pinned MaaFwApp host
+        shell: bash
+        run: |
+          git clone --depth 1 --branch v0.1.0 https://github.com/Aliothmoon/MaaFwApp.git upstream/MaaFwApp
+          test "$(git -C upstream/MaaFwApp rev-parse HEAD)" = "5f5871095fde7a0af5a0171145f3c84d3e2eac18"
+
+      - name: Install MaaFramework Android runtime
+        working-directory: upstream/MaaFwApp
+        run: python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
+
+      - name: Configure Android SDK path
+        working-directory: upstream/MaaFwApp
+        run: printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+
+      - name: Assemble debug APK
+        working-directory: upstream/MaaFwApp
+        run: ./gradlew :app:assembleDebug --no-daemon
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: alas-maa-host-baseline-debug
+          path: upstream/MaaFwApp/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
