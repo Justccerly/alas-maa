@@ -18,9 +18,12 @@
     "java": "17"
   },
   "status": {
-    "phase": "M0-baseline",
+    "phase": "M0-baseline-complete",
     "nativeArtifacts": "ready",
-    "build": "blocked-by-aarch64-host-aidl",
+    "build": "github-actions-debug-apk-passed",
+    "ciRun": "36254073824",
+    "ciCommit": "397019d639b256e841632f3f388c14d4f546f3b2",
+    "artifact": "alas-maa-host-baseline-debug",
     "lastChecked": "2026-09-26"
   }
 }

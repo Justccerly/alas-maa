@@ -9,5 +9,6 @@ if test ! -d "$MAA_APP"; then
 fi
 
 cd "$MAA_APP"
+export PI_PROFILE="$ROOT_DIR/pi-profile.yaml"
 python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
 ./gradlew :app:assembleDebug

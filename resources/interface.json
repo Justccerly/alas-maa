@@ -1,0 +1,39 @@
+{
+  "interface_version": 2,
+  "name": "alas-maa",
+  "label": "Alas Maa",
+  "title": "Alas Maa 0.1.0",
+  "version": "0.1.0",
+  "description": "将 Alas 的碧蓝航线自动化能力接入 MaaFramework 的 Android 宿主。",
+  "contact": "https://github.com/Justccerly/alas-maa",
+  "license": "GPL-3.0-or-later",
+  "github": "https://github.com/Justccerly/alas-maa",
+  "controller": [
+    {
+      "name": "Android",
+      "label": "Android",
+      "type": "Adb"
+    }
+  ],
+  "resource": [
+    {
+      "name": "Default",
+      "label": "默认资源",
+      "path": [
+        "resource/base"
+      ],
+      "controller": [
+        "Android"
+      ]
+    }
+  ],
+  "group": [
+    {
+      "name": "diagnostic",
+      "label": "诊断"
+    }
+  ],
+  "import": [
+    "tasks/startup.json"
+  ]
+}

@@ -1,12 +1,14 @@
 # Resource workspace
+This directory is the MaaFramework Project Interface V2 package for Alas Maa.
 
-This directory will contain the Alas MaaFramework Project Interface V2 resource package.
-
-Planned contents:
-
-- `pipeline/`: deterministic UI flows and MaaFramework task entry points
+Current package layout:
+- `interface.json`: PI V2 entry point consumed by MaaFwApp
+- `tasks/`: user-facing task declarations imported by `interface.json`
+- `resource/base/`: runtime resource path selected by the default resource pack
+- `resource/base/pipeline/`: MaaFramework Pipeline nodes
+- `pipeline/`: reserved authoring area for reusable flows not yet promoted to the runtime package
 - `templates/`: screen templates used by recognition nodes
 - `maps/`: map definitions and replay fixtures
 - `game-data/`: versioned game and task data
 
-Do not place Android UI code or device-control code here. Resources must remain independently testable and updateable.
+`tools/validate-resources.sh` checks JSON syntax, PI imports, resource paths, and task-to-Pipeline entry points. Do not place Android UI code or device-control code here.

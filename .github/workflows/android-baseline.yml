@@ -43,6 +43,8 @@ jobs:
       - name: Restore Gradle caches
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Validate Project Interface resources
+        run: ./tools/validate-resources.sh
       - name: Fetch pinned MaaFwApp host
         shell: bash
         run: |
@@ -55,10 +57,11 @@ jobs:
       - name: Install MaaFramework Android runtime
         working-directory: upstream/MaaFwApp
         run: python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
-
       - name: Configure Android SDK path
         working-directory: upstream/MaaFwApp
-        run: printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+        run: |
+          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+          printf 'pi.profile=%s/pi-profile.yaml\n' "$GITHUB_WORKSPACE" >> local.properties
 
       - name: Assemble debug APK
         working-directory: upstream/MaaFwApp

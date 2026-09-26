@@ -1,0 +1,8 @@
+{
+  "AlasStartupCheck": {
+    "recognition": "OCR",
+    "expected": "碧蓝航线",
+    "action": "DoNothing",
+    "timeout": 10000
+  }
+}

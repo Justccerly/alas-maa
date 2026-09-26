@@ -433,17 +433,16 @@ Alas 使用 GPL-3.0，MaaFramework 使用 LGPL-3.0，MaaMeow 使用 AGPL-3.0。�
 ## 10. 当前首个里程碑
 
 M0 的完成标准：
-
-- [ ] 仓库结构建立
-- [ ] MaaFramework 版本固定
-- [ ] MaaFwApp 基线完成评估
-- [ ] Android arm64 Debug 构建通过
+- [x] 仓库结构建立
+- [x] MaaFramework 版本固定
+- [x] MaaFwApp 基线完成评估
+- [x] Android arm64 Debug 构建通过（GitHub Actions）
 - [ ] Shizuku/Root 状态检测通过
 - [ ] 真实设备截图通过
 - [ ] 点击和滑动通过
 - [ ] 一个模板识别通过
-- [ ] 一个 OCR 识别通过
+- [ ] 一个 OCR 识别通过（Pipeline 已建立，真机尚未验收）
 - [ ] 截图回放测试骨架建立
 - [ ] 运行日志和错误截图落盘
 
-完成 M0 后，再开始迁移第一条游戏流程。
+M0 的宿主构建部分已完成。下一步是将 `resources/` 通过 MaaFwApp 的 `pi.profile` 接入 APK，并在真实 Android 设备上验证 `AlasStartupCheck`。

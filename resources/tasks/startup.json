@@ -1,0 +1,14 @@
+{
+  "task": [
+    {
+      "name": "启动检查",
+      "label": "启动检查",
+      "entry": "AlasStartupCheck",
+      "group": [
+        "diagnostic"
+      ],
+      "default_check": true,
+      "description": "通过 OCR 检查当前画面是否包含碧蓝航线标题。该任务仅用于验证资源加载和识别链路。"
+    }
+  ]
+}

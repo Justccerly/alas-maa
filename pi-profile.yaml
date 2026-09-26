@@ -1,0 +1,13 @@
+# MaaFwApp packaging profile for the checked-in Alas PI V2 resources.
+assets: resources
+include:
+  - interface.json
+  - tasks/**
+  - resource/**
+  - pipeline/**
+  - templates/**
+  - maps/**
+  - game-data/**
+app:
+  id: alasmaa
+  label: Alas Maa
