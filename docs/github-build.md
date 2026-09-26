@@ -7,8 +7,8 @@
 - 文件：`.github/workflows/android-baseline.yml`
 - runner：`ubuntu-24.04`，x86_64
 - Java：17
-- Android：API 37、Build Tools 36、NDK 28.2.13676358
-- MaaFwApp：`v0.1.0`
+- Android：API 36、Build Tools 36、NDK 28.2.13676358
+- MaaFwApp：`v0.1.0`，CI 临时将其 `compileSdk` 从 37 调整为 36，因为 runner 当前 SDK 仓库尚未提供 API 37
 - MaaFramework：`v5.9.2`
 - 架构：`arm64-v8a`
 - 产物：`alas-maa-host-baseline-debug`
