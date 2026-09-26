@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager "platform-tools" "platforms;android-37" "build-tools;36.0.0" "ndk;28.2.13676358"
+          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0" "ndk;28.2.13676358"
 
       - name: Restore Gradle caches
         uses: gradle/actions/setup-gradle@v4
@@ -48,6 +48,9 @@ jobs:
         run: |
           git clone --depth 1 --branch v0.1.0 https://github.com/Aliothmoon/MaaFwApp.git upstream/MaaFwApp
           test "$(git -C upstream/MaaFwApp rev-parse HEAD)" = "5f5871095fde7a0af5a0171145f3c84d3e2eac18"
+
+      - name: Adapt host compile SDK to runner
+        run: sed -i 's/internal const val COMPILE_SDK = 37/internal const val COMPILE_SDK = 36/' upstream/MaaFwApp/build-logic/convention/src/main/kotlin/com/aliothmoon/maafw/gradle/AndroidCommon.kt
 
       - name: Install MaaFramework Android runtime
         working-directory: upstream/MaaFwApp
