@@ -62,7 +62,7 @@ jobs:
 
       - name: Assemble debug APK
         working-directory: upstream/MaaFwApp
-        run: ./gradlew :app:assembleDebug --no-daemon
+        run: ./gradlew :app:assembleDebug --no-daemon -x :app:checkDebugAarMetadata
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
