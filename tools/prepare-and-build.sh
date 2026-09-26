@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+MAA_APP="$ROOT_DIR/upstream/MaaFwApp"
+
+if test ! -d "$MAA_APP"; then
+    printf '%s\n' "Missing $MAA_APP. Clone MaaFwApp v0.1.0 first."
+    exit 1
+fi
+
+cd "$MAA_APP"
+python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
+./gradlew :app:assembleDebug
