@@ -1,0 +1,31 @@
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Android
+local.properties
+*.apk
+*.aab
+*.apks
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Local configuration and runtime data
+.env
+*.local
+runtime/
+logs/
+recordings/
+
+# Local upstream checkout and downloaded native artifacts
+upstream/
+
+# Generated resources
+resources/generated/
