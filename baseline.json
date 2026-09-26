@@ -1,0 +1,26 @@
+{
+  "maaFwApp": {
+    "repository": "https://github.com/Aliothmoon/MaaFwApp.git",
+    "ref": "v0.1.0",
+    "commit": "5f5871095fde7a0af5a0171145f3c84d3e2eac18",
+    "path": "upstream/MaaFwApp"
+  },
+  "maaFramework": {
+    "repository": "https://github.com/MaaXYZ/MaaFramework.git",
+    "release": "v5.9.2",
+    "androidAbis": ["arm64-v8a", "x86_64"],
+    "primaryAbi": "arm64-v8a",
+    "assetPattern": "MAA-android-aarch64-v5.9.2.zip"
+  },
+  "android": {
+    "minSdk": 28,
+    "primaryBuildTask": ":app:assembleDebug",
+    "java": "17"
+  },
+  "status": {
+    "phase": "M0-baseline",
+    "nativeArtifacts": "ready",
+    "build": "blocked-by-aarch64-host-aidl",
+    "lastChecked": "2026-09-26"
+  }
+}
