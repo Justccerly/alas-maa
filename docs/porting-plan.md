@@ -219,20 +219,22 @@ alas-maa/
 - [x] 增加可注入的地图点击执行边界
 - [x] 增加动作计划 JSON 的编码、解码和回放测试
 - [x] 核对 v5.9.2 自定义 Action/Recognition 导出能力并记录宿主接入边界
+- [x] 通过集成脚本向 MaaFwApp 注入 v5.9.2 Custom Recognition JNA 声明和资源注册
+- [x] 增加 `AlasMapRecognition` 固定回放任务，验证 `out_box` / `out_detail` 数据契约
 - [x] 将动作计划编码为 MaaTasker Pipeline override 的 Click 节点链
 - [x] 串联识别、寻路和 RuntimeTask 规格生成的离线规划器
-- [ ] 将 MaaFramework 的 OCR、模板匹配和自定义识别结果解析为 `RecognizedMap`
-- [ ] 将 `PathResult.Found` 转换为 Pipeline 点击/滑动动作
+- [x] 将 MaaFramework Custom Recognition 的 `out_detail` 解析为可回放的 `RecognizedMap` 输入
+- [x] 将 `PathResult.Found` 转换为宿主 `RuntimeTaskPayload` 的 Pipeline 点击动作
 - [ ] 接入真实截图回放测试
 - [ ] 构建 APK 并在真机验证启动、地图识别和地图操作闭环
 
 #### 下一步执行顺序
-1. 先确认当前 MaaFramework 版本中 OCR、模板、自定义识别和 Pipeline 动作的实际 API。
-2. 创建 `alas-maafw` 的最小适配骨架，并以单元测试覆盖识别结果映射和动作规划。
-3. 将适配层接入 MaaFwApp，运行 `:alas-domain:test` 与适配层测试。
-4. 准备固定截图/回放夹具，再构建阶段性 APK 做真机验证。
+1. 在 GitHub Actions x86_64 runner 上完成本次宿主桥接的 Kotlin/Android 编译。
+2. 用固定回放任务验证 MaaFramework Custom Recognition 回调能返回地图详情。
+3. 准备真实截图并替换回放参数，验证 OCR/模板或 native 地图格识别算法。
+4. 构建 APK 后在真机完成启动、地图识别、寻路和点击闭环。
 
-**边界声明：** 当前只完成了“识别语义 → 领域快照”的平台无关契约，不代表真实游戏地图识别、Pipeline 操作或真机地图流程已经完成。
+**边界声明：** 当前已完成 Custom Recognition 的 ABI 注册和固定 JSON 回放桥接，但回放仍使用预先提供的地图语义；真实游戏截图识别、坐标标定和真机地图流程仍未验收。
 
 
 

@@ -13,6 +13,6 @@
 CI 分为两层：
 
 - 每次 push / Pull Request：只运行资源 JSON、Project Interface 和地图回放夹具校验，通常约几分钟内完成。
-- APK 构建：仅在 GitHub Actions 页面手动执行 `workflow_dispatch`，或提交信息包含 `[build-apk]` 时执行。只有需要安装测试、宿主改动或里程碑验收时才触发。
+- APK 构建：仅在 GitHub Actions 页面手动执行 `workflow_dispatch`，或提交信息包含 `[build-apk]` 时执行。宿主桥接、MaaFramework ABI 或资源入口变更应使用 `[build-apk]` 提交标记触发编译验收。
 
 手动构建完成后，产物名为 `alas-maa-host-baseline-debug`。
