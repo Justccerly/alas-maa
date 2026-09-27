@@ -27,6 +27,9 @@ Current slice:
   mirrors the host run plan without importing Android or MaaFwApp classes.
 - `MapRoutePlanner` composes recognition replay, A* routing, action planning,
   and runtime task generation in one offline-testable operation.
+- `MapRouteRuntimePlanner` converts a route result into a validated
+  `MapRuntimeTask`; unreachable routes return a report and never enter the host
+  task queue.
 - `MapRouteDiagnostics` provides map coverage, blocked/unknown counts, path
   cost, tap count, and target details for logs and failure reports.
 - `MapRouteReportCodec` serializes found and unreachable results into stable

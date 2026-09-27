@@ -140,6 +140,50 @@ class MapRecognitionJsonTest {
     }
 
     @Test
+    fun routeRuntimePlannerProducesAHostTaskWithoutAndroidTypes() {
+        val result = MapRouteRuntimePlanner().planRequest(
+            MapRouteRequestCodec.encode(
+                MapRouteRequest(
+                    recognition = MapRecognitionRequestFixture.document(),
+                    fleetX = 0,
+                    fleetY = 0,
+                    movementPoints = 2,
+                    targetX = 2,
+                    targetY = 0,
+                    originX = 100,
+                    originY = 200,
+                    cellWidth = 50,
+                    cellHeight = 40,
+                ),
+            ),
+            taskName = "地图动作计划",
+        )
+
+        val ready = assertIs<MapRouteRuntimeResult.Ready>(result)
+        assertEquals("地图动作计划", ready.task.taskName)
+        assertEquals("AlasMapAction", ready.task.entry)
+        assertEquals(1, ready.task.pipelineOverrides.size)
+        assertEquals(2, ready.diagnostics.tapCount)
+    }
+
+    @Test
+    fun routeRuntimePlannerKeepsUnreachableRoutesOutOfTheTaskQueue() {
+        val result = MapRouteRuntimePlanner().planRequest(
+            """
+            {"recognition":{"width":2,"height":1,"cells":[
+              {"x":0,"y":0,"kind":"sea"}
+            ]},"fleetX":0,"fleetY":0,"movementPoints":1,
+            "targetX":1,"targetY":0,"originX":0,"originY":0,
+            "cellWidth":10,"cellHeight":10}
+            """.trimIndent(),
+        )
+
+        val rejected = assertIs<MapRouteRuntimeResult.Rejected>(result)
+        assertEquals("target is outside the map", rejected.reason)
+        assertTrue(rejected.reportJson.contains("\"status\":\"UNREACHABLE\""))
+    }
+
+    @Test
     fun routeRequestRejectsInvalidExecutionParametersEarly() {
         assertFailsWith<IllegalArgumentException> {
             MapRouteRequest(
