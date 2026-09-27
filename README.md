@@ -39,6 +39,8 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 
 识别回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。宿主当前的远程触摸接口主要服务预览交互，自动任务输入仍需单独确认 MaaFramework action/custom action 的正式入口。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
 
+MaaFramework 自定义 Action/Recognition 的本地核对结果和接入顺序见 [适配层核对记录](docs/maafw-adapter.md)。
+
 ## 开发和验证
 
 在具备 Java 17、Android SDK 和网络访问的环境中，CI 会依次执行资源校验、地图/识别回放校验、`alas-domain` 与 `alas-maafw` 单元测试，并按条件构建 Debug APK。当前 Termux 终端没有 Java，不能在本地执行 Gradle 测试。
