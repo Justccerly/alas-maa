@@ -12,6 +12,8 @@ Current package layout:
 - `replays/`: recognition JSON replay fixtures consumed by the adapter tests
 - `replays/map-action-plan.json`: deterministic action-plan fixture used to validate Pipeline Click chaining
 - `replays/map-route-request.json`: complete route-planning request fixture
+- `resource/base/pipeline/map_action.json` also declares the
+  `AlasMapRecognition` Custom Recognition node used by the host callback bridge.
 - `game-data/`: versioned game and task data
 
 `resources/maps/blocked-route.json` is the first deterministic map replay fixture. `alas-domain/` contains the platform-independent Kotlin model and pathfinder that will consume this kind of snapshot.

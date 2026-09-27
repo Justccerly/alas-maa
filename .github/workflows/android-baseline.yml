@@ -82,6 +82,8 @@ jobs:
           test "$(git -C upstream/MaaFwApp rev-parse HEAD)" = "5f5871095fde7a0af5a0171145f3c84d3e2eac18"
       - name: Integrate Alas Domain Gradle module
         run: ./tools/integrate-domain-module.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
+      - name: Integrate Alas Custom Recognition bridge
+        run: ./tools/integrate-maafw-recognition.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
       - name: Adapt host compile SDK to runner
         run: sed -i 's/internal const val COMPILE_SDK = 37/internal const val COMPILE_SDK = 36/' upstream/MaaFwApp/build-logic/convention/src/main/kotlin/com/aliothmoon/maafw/gradle/AndroidCommon.kt
       - name: Install MaaFramework Android runtime

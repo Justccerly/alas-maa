@@ -56,10 +56,22 @@ for entry in entries:
     if entry and entry not in pipeline_nodes:
         errors.append(f"task entry {entry!r} has no matching Pipeline node")
 
+map_pipeline_path = os.path.join(root, "resource", "base", "pipeline", "map_action.json")
+map_pipeline = load(map_pipeline_path)
+recognition_node = map_pipeline.get("AlasMapRecognition", {})
+recognition = recognition_node.get("recognition", {}) if isinstance(recognition_node, dict) else {}
+recognition_param = recognition.get("param", {}) if isinstance(recognition, dict) else {}
+if recognition.get("type") != "Custom" or recognition_param.get("custom_recognition") != "AlasMapRecognition":
+    errors.append("map_action.json: AlasMapRecognition must be a Custom Recognition node")
+custom_param = recognition_param.get("custom_recognition_param", {})
+if not isinstance(custom_param, dict) or not isinstance(custom_param.get("map"), dict):
+    errors.append("map_action.json: AlasMapRecognition must include replay map parameters")
+
 if errors:
     for error in errors:
         print(f"[!!] {error}")
     raise SystemExit(1)
 
 print(f"[ok] Project Interface V2 resource package: {len(entries)} task(s), {len(pipeline_nodes)} pipeline node(s)")
+print("[ok] AlasMapRecognition Custom Recognition node")
 PY

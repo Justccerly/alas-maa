@@ -2,6 +2,8 @@
 
 ## 已确认的运行时事实
 
+CI/本地构建会运行 `tools/integrate-maafw-recognition.sh`，向 MaaFwApp 注入已核对的 JNA 声明、回调实现和资源注册调用。
+
 本地 MaaFramework `v5.9.2` arm64 库导出了以下能力：
 
 - `MaaResourceRegisterCustomAction`
@@ -11,7 +13,7 @@
 - `MaaTaskerPostAction`
 - `MaaTaskerPostRecognition`
 
-`MaaFwApp` 当前的 JNA 声明和 `MaaRunner` 只使用资源加载、Controller、Tasker 和事件回调，尚未把这些自定义 Action/Recognition 注册函数暴露到 Kotlin。自动点击应通过 MaaFramework 的 Pipeline `Click` 或注册后的 Custom Action 进入控制器；预览用的 `RemoteService.touchDown/touchUp` 不属于自动任务接口。
+`MaaFwApp` 的 JNA 声明和 `MaaRunner` 现在通过集成脚本暴露并注册 v5.9.2 Custom Recognition；自动点击继续通过 MaaFramework Pipeline `Click` 进入控制器，预览用的 `RemoteService.touchDown/touchUp` 不属于自动任务接口。
 
 ## 当前边界
 

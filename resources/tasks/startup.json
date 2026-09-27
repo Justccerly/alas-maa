@@ -32,6 +32,16 @@
       ],
       "default_check": false,
       "description": "动作计划回放入口。宿主通过 Pipeline override 注入固定坐标 Click 节点。"
+    },
+    {
+      "name": "地图识别回放",
+      "label": "地图识别回放",
+      "entry": "AlasMapRecognition",
+      "group": [
+        "diagnostic"
+      ],
+      "default_check": false,
+      "description": "通过 v5.9.2 Custom Recognition 回调回放固定地图识别结果，验证 out_box/out_detail 桥接。"
     }
   ]
 }
