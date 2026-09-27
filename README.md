@@ -38,7 +38,7 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 - `MapActionExecutor`：通过宿主提供的 `TapSink` 执行点击计划
 - `MapActionPipelineEncoder`：动作计划 → MaaFramework Pipeline override
 
-识别回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。宿主当前的远程触摸接口主要服务预览交互，自动任务输入仍需单独确认 MaaFramework action/custom action 的正式入口。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
+识别和动作回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。宿主当前的远程触摸接口主要服务预览交互，自动任务输入仍需单独确认 MaaFramework action/custom action 的正式入口。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
 
 MaaFramework 自定义 Action/Recognition 的本地核对结果和接入顺序见 [适配层核对记录](docs/maafw-adapter.md)。动作计划现在可以直接编码为 `MaaTaskerPostTask` 的 Pipeline override，资源包提供 `AlasMapAction` 入口，宿主可在已有 Runner 上以有序 override 提交这个 JSON。
 

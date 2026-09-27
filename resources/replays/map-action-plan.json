@@ -1,0 +1,7 @@
+{
+  "entry": "AlasMapAction",
+  "actions": [
+    {"x": 100, "y": 200, "coordinateX": 1, "coordinateY": 0, "postDelayMs": 150},
+    {"x": 150, "y": 200, "coordinateX": 2, "coordinateY": 0, "postDelayMs": 200}
+  ]
+}

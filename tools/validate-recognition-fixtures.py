@@ -16,7 +16,7 @@ def coordinate(cell):
 
 
 errors = []
-for path in sorted(REPLAYS.glob("*.json")):
+for path in sorted(REPLAYS.glob("map-recognition-*.json")):
     try:
         with path.open(encoding="utf-8") as handle:
             document = json.load(handle)
@@ -45,5 +45,5 @@ for path in sorted(REPLAYS.glob("*.json")):
 if errors:
     print("\n".join(errors))
     sys.exit(1)
-if not list(REPLAYS.glob("*.json")):
+if not list(REPLAYS.glob("map-recognition-*.json")):
     print("[info] no recognition replay fixtures found")
