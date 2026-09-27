@@ -8,6 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.assertIs
+import kotlin.test.assertFailsWith
 
 class MapRecognitionJsonTest {
     @Test
@@ -136,6 +137,39 @@ class MapRecognitionJsonTest {
         val found = assertIs<MapRoutePlanResult.Found>(result)
         assertEquals(2, found.path.path.totalCost)
         assertEquals(2, found.diagnostics.tapCount)
+    }
+
+    @Test
+    fun routeRequestRejectsInvalidExecutionParametersEarly() {
+        assertFailsWith<IllegalArgumentException> {
+            MapRouteRequest(
+                recognition = MapRecognitionRequestFixture.document(),
+                fleetX = 0,
+                fleetY = 0,
+                movementPoints = -1,
+                targetX = 1,
+                targetY = 0,
+                originX = 0,
+                originY = 0,
+                cellWidth = 10,
+                cellHeight = 10,
+            )
+        }
+        assertFailsWith<IllegalArgumentException> {
+            MapRouteRequest(
+                recognition = MapRecognitionRequestFixture.document(),
+                fleetX = 0,
+                fleetY = 0,
+                movementPoints = 1,
+                targetX = 1,
+                targetY = 0,
+                originX = 0,
+                originY = 0,
+                cellWidth = 10,
+                cellHeight = 10,
+                minimumConfidence = 2.0,
+            )
+        }
     }
 }
 

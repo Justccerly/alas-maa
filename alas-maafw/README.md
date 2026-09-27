@@ -31,6 +31,8 @@ Current slice:
   JSON for host logs and replay artifacts.
 - `MapRouteRequestCodec` serializes the complete route-planning input so a
   replay does not require test code to reconstruct parameters.
+- `MapRouteRequest` rejects invalid coordinates, movement points, grid sizes,
+  confidence thresholds, and task entry names at construction time.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

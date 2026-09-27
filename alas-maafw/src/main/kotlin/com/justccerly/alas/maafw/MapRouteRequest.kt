@@ -21,9 +21,26 @@ data class MapRouteRequest(
     val allowEnemyGrid: Boolean = false,
     val entry: String = "AlasMapAction",
 ) {
+    init {
+        require(fleetX >= 0 && fleetY >= 0) { "fleet coordinates must be non-negative" }
+        require(targetX >= 0 && targetY >= 0) { "target coordinates must be non-negative" }
+        require(movementPoints >= 0) { "movementPoints must be non-negative" }
+        require(cellWidth > 0 && cellHeight > 0) { "cell dimensions must be positive" }
+        require(minimumConfidence == null || minimumConfidence in 0.0..1.0) {
+            "minimumConfidence must be between 0 and 1"
+        }
+        require(entry.matches(ENTRY_PATTERN)) {
+            "entry must contain only letters, digits, _, ., or -"
+        }
+    }
+
     fun fleet() = FleetState(MapCoordinate(fleetX, fleetY), movementPoints)
     fun target() = MapCoordinate(targetX, targetY)
     fun geometry() = MapGridGeometry(ScreenPoint(originX, originY), cellWidth, cellHeight)
+
+    private companion object {
+        val ENTRY_PATTERN = Regex("[A-Za-z0-9_.-]+")
+    }
 }
 
 object MapRouteRequestCodec {
