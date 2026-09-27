@@ -39,11 +39,22 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 - `MapActionPipelineEncoder`：动作计划 → MaaFramework Pipeline override
 - `MapRoutePlanner`：识别 JSON → 寻路 → RuntimeTask 规格
 - `MapRouteRequestCodec`：完整路线请求 → 可回放 JSON
+- `MapRouteReportCodec`：路线结果 → 稳定诊断 JSON
+- `MapRouteRequestCodec`：完整路线请求 → 可回放 JSON
 
-识别和动作回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。宿主当前的远程触摸接口主要服务预览交互，自动任务输入仍需单独确认 MaaFramework action/custom action 的正式入口。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
+识别、动作和完整路线请求回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。宿主当前的远程触摸接口主要服务预览交互，自动任务输入仍需单独确认 MaaFramework action/custom action 的正式入口。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
 
 MaaFramework 自定义 Action/Recognition 的本地核对结果和接入顺序见 [适配层核对记录](docs/maafw-adapter.md)。动作计划现在可以直接编码为 `MaaTaskerPostTask` 的 Pipeline override，资源包提供 `AlasMapAction` 入口，宿主可在已有 Runner 上以有序 override 提交这个 JSON。
 
 ## 开发和验证
 
-在具备 Java 17、Android SDK 和网络访问的环境中，CI 会依次执行资源校验、地图/识别回放校验、`alas-domain` 与 `alas-maafw` 单元测试，并按条件构建 Debug APK。当前 Termux 终端没有 Java，不能在本地执行 Gradle 测试。
+在具备 Java 17、Android SDK 和网络访问的环境中，CI 会依次执行资源校验、地图/识别/动作回放校验、`alas-domain` 与 `alas-maafw` 单元测试，并按条件构建 Debug APK。当前 Termux 终端没有 Java，不能在本地执行 Gradle 测试。
+
+本地可运行不依赖 Gradle 的检查：
+
+```bash
+./tools/validate-resources.sh
+python3 tools/validate-domain-fixtures.py
+python3 tools/validate-recognition-fixtures.py
+python3 tools/validate-action-fixtures.py
+```

@@ -29,6 +29,8 @@ jobs:
         run: python3 tools/validate-recognition-fixtures.py
       - name: Validate action replay fixtures
         run: python3 tools/validate-action-fixtures.py
+      - name: Validate route request replay fixtures
+        run: python3 tools/validate-route-request-fixtures.py
       - name: Validate Alas Domain module structure
         run: ./tools/check-domain-module.sh
       - name: Validate JSON documents
