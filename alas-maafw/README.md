@@ -23,6 +23,8 @@ Current slice:
   boundaries.
 - `MapActionRuntimeSpecFactory` packages the entry and overrides into the exact
   platform-neutral task shape the host needs.
+- `MapRoutePlanner` composes recognition replay, A* routing, action planning,
+  and runtime task generation in one offline-testable operation.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses
