@@ -94,4 +94,25 @@ class MapRecognitionJsonTest {
         assertEquals(1, unreachable.diagnostics.observedCells)
         assertEquals(2, unreachable.diagnostics.movementPoints)
     }
+
+    @Test
+    fun routeReportCodecProducesStableSuccessJson() {
+        val json = """
+            {"width":2,"height":1,"cells":[
+              {"x":0,"y":0,"kind":"sea"},
+              {"x":1,"y":0,"kind":"sea"}
+            ]}
+        """.trimIndent()
+        val result = MapRoutePlanner().plan(
+            json,
+            FleetState(MapCoordinate(0, 0), movementPoints = 1),
+            MapCoordinate(1, 0),
+            MapGridGeometry(ScreenPoint(10, 20), 30, 40),
+        )
+
+        assertEquals(
+            "{\"status\":\"FOUND\",\"diagnostics\":{\"mapWidth\":2,\"mapHeight\":1,\"observedCells\":2,\"unknownCells\":0,\"blockedCells\":0,\"fleetPosition\":{\"x\":0,\"y\":0},\"target\":{\"x\":1,\"y\":0},\"movementPoints\":1,\"pathCost\":1,\"tapCount\":1},\"path\":[{\"x\":0,\"y\":0},{\"x\":1,\"y\":0}]}"
+            MapRouteReportCodec.encode(result),
+        )
+    }
 }

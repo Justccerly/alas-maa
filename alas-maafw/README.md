@@ -27,6 +27,8 @@ Current slice:
   and runtime task generation in one offline-testable operation.
 - `MapRouteDiagnostics` provides map coverage, blocked/unknown counts, path
   cost, tap count, and target details for logs and failure reports.
+- `MapRouteReportCodec` serializes found and unreachable results into stable
+  JSON for host logs and replay artifacts.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

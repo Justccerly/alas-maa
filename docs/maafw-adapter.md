@@ -31,6 +31,8 @@
 
 `MapRoutePlanner` 的结果还带有 `MapRouteDiagnostics`，可直接写入运行日志：识别覆盖数量、未知/阻挡格数量、舰队位置、目标、移动点、路径成本和点击数都在其中。
 
+使用 `MapRouteReportCodec.encode` 可将成功路线或不可达原因编码为稳定 JSON，适合随运行日志保存。
+
 下一步接入需要在宿主或 native bridge 中完成：
 
 1. 按 v5.9.2 头文件核对自定义 Action/Recognition 的完整 C ABI 签名。
