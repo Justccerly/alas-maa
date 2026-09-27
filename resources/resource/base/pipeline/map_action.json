@@ -1,0 +1,6 @@
+{
+  "AlasMapAction": {
+    "action": "DoNothing",
+    "timeout": 1000
+  }
+}

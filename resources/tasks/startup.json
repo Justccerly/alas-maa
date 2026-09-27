@@ -22,6 +22,16 @@
       ],
       "default_check": false,
       "description": "不依赖游戏画面，用于确认 Alas Maa 的 Project Interface、任务和 Pipeline 已被宿主加载。"
+    },
+    {
+      "name": "地图动作计划入口",
+      "label": "地图动作计划入口",
+      "entry": "AlasMapAction",
+      "group": [
+        "diagnostic"
+      ],
+      "default_check": false,
+      "description": "动作计划回放入口。宿主通过 Pipeline override 注入固定坐标 Click 节点。"
     }
   ]
 }

@@ -16,6 +16,8 @@ Current slice:
   keeps delay handling injectable for replay tests.
 - `MapActionPlanCodec` encodes and decodes the same plan format for host logging
   and replay.
+- `MapActionPipelineEncoder` turns a found plan into chained fixed-coordinate
+  `Click` nodes for `MaaTaskerPostTask` pipeline overrides.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

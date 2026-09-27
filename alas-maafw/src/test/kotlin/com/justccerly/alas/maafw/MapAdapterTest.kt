@@ -133,4 +133,37 @@ class MapAdapterTest {
 
         assertEquals(original, MapActionPlanCodec.decode(MapActionPlanCodec.encode(original)))
     }
+
+    @Test
+    fun encodesAPlanAsChainedFixedCoordinateClicks() {
+        val plan = MapActionPlan(
+            status = ActionPlanStatus.FOUND,
+            totalCost = 2,
+            actions = listOf(
+                PlannedTap(10, 20, 1, 0, 25),
+                PlannedTap(30, 40, 2, 0, 50),
+            ),
+        )
+
+        val document = MapActionPipelineEncoder.encode(plan, entry = "AlasMapAction")
+
+        assertEquals(
+            "{\"AlasMapAction\":{\"action\":\"Click\",\"target\":[10,20],\"post_delay\":25,\"next\":[\"AlasMapAction.1\"]},\"AlasMapAction.1\":{\"action\":\"Click\",\"target\":[30,40],\"post_delay\":50}}",
+            document,
+        )
+    }
+
+    @Test
+    fun rejectsUnreachablePlansAndUnsafeEntries() {
+        val unreachable = MapActionPlan(ActionPlanStatus.UNREACHABLE, reason = "no route")
+        kotlin.test.assertFailsWith<IllegalArgumentException> {
+            MapActionPipelineEncoder.encode(unreachable)
+        }
+        kotlin.test.assertFailsWith<IllegalArgumentException> {
+            MapActionPipelineEncoder.encode(
+                MapActionPlan(ActionPlanStatus.FOUND),
+                entry = "Alas Map",
+            )
+        }
+    }
 }
