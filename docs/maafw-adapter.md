@@ -25,6 +25,8 @@
 
 `resources/replays/map-action-plan.json` 同时保存预期的 Pipeline 节点链，CI 会重新生成并比较该结构，检查入口、固定坐标、延迟和 `next` 连续性。
 
+宿主接线时优先使用 `MapActionPipelineEncoder.encodeOverrides`，它直接返回 MaaFwApp `RuntimeTask.pipelineOverrides` 所需的 `List<JsonObject>`；只有跨 native/JNA 边界时才使用字符串形式的 `encode`。
+
 下一步接入需要在宿主或 native bridge 中完成：
 
 1. 按 v5.9.2 头文件核对自定义 Action/Recognition 的完整 C ABI 签名。

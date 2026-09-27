@@ -11,6 +11,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 class MapAdapterTest {
     @Test
@@ -150,6 +152,22 @@ class MapAdapterTest {
         assertEquals(
             "{\"AlasMapAction\":{\"action\":\"Click\",\"target\":[10,20],\"post_delay\":25,\"next\":[\"AlasMapAction.1\"]},\"AlasMapAction.1\":{\"action\":\"Click\",\"target\":[30,40],\"post_delay\":50}}",
             document,
+        )
+    }
+
+    @Test
+    fun exposesAnOrderedOverrideListForTheHostRuntime() {
+        val plan = MapActionPlan(
+            status = ActionPlanStatus.FOUND,
+            actions = listOf(PlannedTap(10, 20, 1, 0, 25)),
+        )
+
+        val overrides = MapActionPipelineEncoder.encodeOverrides(plan)
+
+        assertEquals(1, overrides.size)
+        assertEquals(
+            "Click",
+            overrides.single()["AlasMapAction"]!!.jsonObject["action"]!!.jsonPrimitive.content,
         )
     }
 
