@@ -27,6 +27,8 @@
 
 宿主接线时优先使用 `MapActionPipelineEncoder.encodeOverrides`，它直接返回 MaaFwApp `RuntimeTask.pipelineOverrides` 所需的 `List<JsonObject>`；只有跨 native/JNA 边界时才使用字符串形式的 `encode`。
 
+如果调用方只需要一个可传递的中间值，使用 `MapActionRuntimeSpecFactory.fromPlan`，它返回 `entry` 和 `pipelineOverrides`，不引入 MaaFwApp 的 Android 类型。
+
 下一步接入需要在宿主或 native bridge 中完成：
 
 1. 按 v5.9.2 头文件核对自定义 Action/Recognition 的完整 C ABI 签名。

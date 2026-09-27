@@ -172,6 +172,20 @@ class MapAdapterTest {
     }
 
     @Test
+    fun createsTheRuntimeTaskShapeExpectedByMaaFwApp() {
+        val spec = MapActionRuntimeSpecFactory.fromPlan(
+            MapActionPlan(
+                status = ActionPlanStatus.FOUND,
+                actions = listOf(PlannedTap(10, 20, 1, 0, 25)),
+            ),
+        )
+
+        assertEquals("AlasMapAction", spec.entry)
+        assertEquals(1, spec.pipelineOverrides.size)
+        assertEquals("Click", spec.pipelineOverrides.single()["AlasMapAction"]!!.jsonObject["action"]!!.jsonPrimitive.content)
+    }
+
+    @Test
     fun rejectsUnreachablePlansAndUnsafeEntries() {
         val unreachable = MapActionPlan(ActionPlanStatus.UNREACHABLE, reason = "no route")
         kotlin.test.assertFailsWith<IllegalArgumentException> {

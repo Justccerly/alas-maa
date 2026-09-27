@@ -21,6 +21,8 @@ Current slice:
 - `encodeOverrides` returns the `List<JsonObject>` shape expected by the
   MaaFwApp `RuntimeTask` boundary; `encode` remains available for native JSON
   boundaries.
+- `MapActionRuntimeSpecFactory` packages the entry and overrides into the exact
+  platform-neutral task shape the host needs.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses
