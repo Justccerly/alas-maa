@@ -37,6 +37,17 @@ object MaaMapRecognitionCallbackCodec {
         val map: MapRecognitionDocument,
     )
 
+    /** Parameters accepted by the replay recognition callback. */
+    @Serializable
+    data class Request(
+        val map: MapRecognitionDocument,
+        val box: MaaRecognitionBox? = null,
+    )
+
+    fun encodeRequest(request: Request): String = json.encodeToString(request)
+
+    fun decodeRequest(paramJson: String): Request = json.decodeFromString(paramJson)
+
     fun encodeDetail(map: MapRecognitionDocument): String =
         json.encodeToString(Detail(schema = SCHEMA, map = map))
 

@@ -273,6 +273,21 @@ class MapRecognitionJsonTest {
             )
         }
     }
+
+    @Test
+    fun roundTripsReplayRecognitionCallbackParameters() {
+        val request = MaaMapRecognitionCallbackCodec.Request(
+            map = MapRecognitionRequestFixture.document(),
+            box = MaaRecognitionBox(20, 30, 150, 40),
+        )
+
+        assertEquals(
+            request,
+            MaaMapRecognitionCallbackCodec.decodeRequest(
+                MaaMapRecognitionCallbackCodec.encodeRequest(request),
+            ),
+        )
+    }
 }
 
 private object MapRecognitionRequestFixture {
