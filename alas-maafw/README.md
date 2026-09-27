@@ -23,6 +23,8 @@ Current slice:
   boundaries.
 - `MapActionRuntimeSpecFactory` packages the entry and overrides into the exact
   platform-neutral task shape the host needs.
+- `MapActionRuntimeSpec.asRuntimeTask` exposes a validated task boundary that
+  mirrors the host run plan without importing Android or MaaFwApp classes.
 - `MapRoutePlanner` composes recognition replay, A* routing, action planning,
   and runtime task generation in one offline-testable operation.
 - `MapRouteDiagnostics` provides map coverage, blocked/unknown counts, path

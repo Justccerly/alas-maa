@@ -29,6 +29,8 @@
 
 如果调用方只需要一个可传递的中间值，使用 `MapActionRuntimeSpecFactory.fromPlan`，它返回 `entry` 和 `pipelineOverrides`，不引入 MaaFwApp 的 Android 类型。
 
+宿主组装运行计划时可以调用 `MapActionRuntimeSpec.asRuntimeTask(taskName)`，得到经过校验的 `MapRuntimeTask`。这个值与 MaaFwApp `RuntimeTaskPayload` 的字段一一对应，宿主只需在自己的线格式转换处复制字段，不需要让 Android 类型反向进入适配模块。
+
 `MapRoutePlanner` 的结果还带有 `MapRouteDiagnostics`，可直接写入运行日志：识别覆盖数量、未知/阻挡格数量、舰队位置、目标、移动点、路径成本和点击数都在其中。
 
 使用 `MapRouteReportCodec.encode` 可将成功路线或不可达原因编码为稳定 JSON，适合随运行日志保存。

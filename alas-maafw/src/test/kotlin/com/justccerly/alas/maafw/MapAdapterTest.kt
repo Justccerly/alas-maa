@@ -183,6 +183,10 @@ class MapAdapterTest {
         assertEquals("AlasMapAction", spec.entry)
         assertEquals(1, spec.pipelineOverrides.size)
         assertEquals("Click", spec.pipelineOverrides.single()["AlasMapAction"]!!.jsonObject["action"]!!.jsonPrimitive.content)
+        assertEquals(
+            MapRuntimeTask("地图动作计划", "AlasMapAction", spec.pipelineOverrides),
+            spec.asRuntimeTask("地图动作计划"),
+        )
     }
 
     @Test

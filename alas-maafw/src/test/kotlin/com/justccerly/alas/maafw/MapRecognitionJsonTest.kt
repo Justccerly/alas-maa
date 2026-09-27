@@ -171,6 +171,38 @@ class MapRecognitionJsonTest {
             )
         }
     }
+
+    @Test
+    fun rejectsMalformedRecognitionDocumentsBeforePlanning() {
+        assertFailsWith<IllegalArgumentException> {
+            MapRecognitionJson.decode(
+                """
+                {"width":2,"height":1,"cells":[
+                  {"x":0,"y":0,"kind":"sea"},
+                  {"x":0,"y":0,"kind":"sea"}
+                ]}
+                """.trimIndent(),
+            )
+        }
+        assertFailsWith<IllegalArgumentException> {
+            MapRecognitionJson.decode(
+                """
+                {"width":2,"height":1,"cells":[
+                  {"x":2,"y":0,"kind":"sea"}
+                ]}
+                """.trimIndent(),
+            )
+        }
+        assertFailsWith<IllegalArgumentException> {
+            MapRecognitionJson.decode(
+                """
+                {"width":1,"height":1,"cells":[
+                  {"x":0,"y":0,"kind":"sea","confidence":1.5}
+                ]}
+                """.trimIndent(),
+            )
+        }
+    }
 }
 
 private object MapRecognitionRequestFixture {

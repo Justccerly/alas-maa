@@ -6,7 +6,28 @@ import kotlinx.serialization.json.JsonObject
 data class MapActionRuntimeSpec(
     val entry: String,
     val pipelineOverrides: List<JsonObject>,
-)
+) {
+    /** Shape shared by the host's RuntimeTaskPayload without importing Android classes. */
+    fun asRuntimeTask(taskName: String = entry): MapRuntimeTask {
+        require(taskName.isNotBlank()) { "taskName must not be blank" }
+        return MapRuntimeTask(
+            taskName = taskName,
+            entry = entry,
+            pipelineOverrides = pipelineOverrides,
+        )
+    }
+}
+
+data class MapRuntimeTask(
+    val taskName: String,
+    val entry: String,
+    val pipelineOverrides: List<JsonObject>,
+) {
+    init {
+        require(taskName.isNotBlank()) { "taskName must not be blank" }
+        require(entry.isNotBlank()) { "entry must not be blank" }
+    }
+}
 
 object MapActionRuntimeSpecFactory {
     fun fromPlan(plan: MapActionPlan, entry: String = "AlasMapAction"): MapActionRuntimeSpec =

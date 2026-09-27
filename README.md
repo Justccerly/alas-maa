@@ -37,6 +37,7 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 - `MapActionPlanCodec`：动作计划 → 宿主可消费的 JSON
 - `MapActionExecutor`：通过宿主提供的 `TapSink` 执行点击计划
 - `MapActionPipelineEncoder`：动作计划 → MaaFramework Pipeline override
+- `MapRuntimeTask`：经过校验的 taskName、entry 和 pipelineOverrides 宿主边界
 - `MapRoutePlanner`：识别 JSON → 寻路 → RuntimeTask 规格
 - `MapRouteRequestCodec`：完整路线请求 → 可回放 JSON
 - `MapRouteReportCodec`：路线结果 → 稳定诊断 JSON
