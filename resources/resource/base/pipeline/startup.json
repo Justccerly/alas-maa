@@ -1,12 +1,11 @@
 {
+  "AlasStartGame": {
+    "action": "StartApp",
+    "package": "com.bilibili.azurlane",
+    "timeout": 15000
+  },
   "AlasResourceLoaded": {
     "action": "DoNothing",
     "timeout": 1000
-  },
-  "AlasStartupCheck": {
-    "recognition": "OCR",
-    "expected": "碧蓝航线",
-    "action": "DoNothing",
-    "timeout": 10000
   }
 }

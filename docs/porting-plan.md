@@ -444,8 +444,9 @@ M0 的完成标准：
 - [ ] 真实设备截图通过
 - [ ] 点击和滑动通过
 - [ ] 一个模板识别通过
-- [ ] 一个 OCR 识别通过（Pipeline 已建立，真机尚未验收）
+- [ ] 一个 OCR 识别通过
+- [x] ADB 启动游戏 Pipeline 已建立（包名按服务器选项覆盖）
 - [ ] 截图回放测试骨架建立
 - [ ] 运行日志和错误截图落盘
 
-M0 的宿主构建部分已完成。下一步是将 `resources/` 通过 MaaFwApp 的 `pi.profile` 接入 APK，并在真实 Android 设备上验证 `AlasStartupCheck`。
+M0 的宿主构建部分已完成。下一步是在真实 Android 设备上验证 `启动碧蓝航线` 的 ADB 启动行为，再将 MaaFramework 截图和识别结果转换为 `MapSnapshot`。

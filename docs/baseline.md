@@ -52,4 +52,4 @@ python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
 - 截图、点击和滑动
 - MaaFramework 模板识别和 OCR
 - 后台虚拟显示与任务取消
-- 碧蓝航线实际画面上的 `AlasStartupCheck` Pipeline
+- 碧蓝航线实际画面上的启动与后续 Pipeline

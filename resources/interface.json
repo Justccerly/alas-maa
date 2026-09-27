@@ -11,7 +11,7 @@
   "controller": [
     {
       "name": "Android",
-      "label": "Android",
+      "label": "Android ADB",
       "type": "Adb"
     }
   ],
@@ -35,5 +35,50 @@
   ],
   "import": [
     "tasks/startup.json"
-  ]
+  ],
+  "option": {
+    "游戏服务器": {
+      "type": "select",
+      "label": "游戏服务器",
+      "description": "选择需要通过 ADB 启动的碧蓝航线客户端包名。",
+      "cases": [
+        {
+          "name": "CN",
+          "label": "国服 B 服",
+          "pipeline_override": {
+            "AlasStartGame": {
+              "package": "com.bilibili.azurlane"
+            }
+          }
+        },
+        {
+          "name": "EN",
+          "label": "国际服 EN",
+          "pipeline_override": {
+            "AlasStartGame": {
+              "package": "com.YoStarEN.AzurLane"
+            }
+          }
+        },
+        {
+          "name": "JP",
+          "label": "日服 JP",
+          "pipeline_override": {
+            "AlasStartGame": {
+              "package": "com.YoStarJP.AzurLane"
+            }
+          }
+        },
+        {
+          "name": "TW",
+          "label": "港澳台服",
+          "pipeline_override": {
+            "AlasStartGame": {
+              "package": "com.hkmanjuu.azurlane.gp"
+            }
+          }
+        }
+      ]
+    }
+  }
 }
