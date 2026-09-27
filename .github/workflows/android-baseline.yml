@@ -25,6 +25,8 @@ jobs:
         run: ./tools/validate-resources.sh
       - name: Validate domain replay fixtures
         run: python3 tools/validate-domain-fixtures.py
+      - name: Validate Alas Domain module structure
+        run: ./tools/check-domain-module.sh
       - name: Validate JSON documents
         shell: bash
         run: |
@@ -72,6 +74,8 @@ jobs:
         run: |
           git clone --depth 1 --branch v0.1.0 https://github.com/Aliothmoon/MaaFwApp.git upstream/MaaFwApp
           test "$(git -C upstream/MaaFwApp rev-parse HEAD)" = "5f5871095fde7a0af5a0171145f3c84d3e2eac18"
+      - name: Integrate Alas Domain Gradle module
+        run: ./tools/integrate-domain-module.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
       - name: Adapt host compile SDK to runner
         run: sed -i 's/internal const val COMPILE_SDK = 37/internal const val COMPILE_SDK = 36/' upstream/MaaFwApp/build-logic/convention/src/main/kotlin/com/aliothmoon/maafw/gradle/AndroidCommon.kt
       - name: Install MaaFramework Android runtime
@@ -82,6 +86,9 @@ jobs:
         run: |
           printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
           printf 'pi.profile=%s/pi-profile.yaml\n' "$GITHUB_WORKSPACE" >> local.properties
+      - name: Run Alas Domain unit tests
+        working-directory: upstream/MaaFwApp
+        run: ./gradlew :alas-domain:test --no-daemon
       - name: Assemble debug APK
         working-directory: upstream/MaaFwApp
         run: ./gradlew :app:assembleDebug --no-daemon -x :app:checkDebugAarMetadata

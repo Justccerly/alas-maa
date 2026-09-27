@@ -259,6 +259,7 @@ interface TaskRuntime {
 - [x] 建立平台无关的坐标、格子、舰队和路径结果模型
 - [x] 实现确定性四方向 A*，支持障碍、移动代价、敌方格和移动点限制
 - [x] 建立首个地图回放夹具和 CI 校验
+- [x] 接入 MaaFwApp 的 Gradle JVM 模块并运行 `:alas-domain:test`
 - [ ] 将 MaaFramework 识别结果转换为 `MapSnapshot`
 任务：
 

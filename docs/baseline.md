@@ -41,8 +41,9 @@ python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
 - Debug APK 产物 `alas-maa-host-baseline-debug` 已生成，Artifact ID 为 `10919283791`，大小约 53 MB。
 - 本地仍不能构建，原因是当前主机为 `aarch64`，SDK 的 `aidl` 是 `x86_64` ELF。
 - Project Interface V2 资源骨架和地图回放夹具已通过 CI 校验。
-- `pi-profile.yaml` 已接入宿主构建，`PI_PROFILE=... ./gradlew :app:syncPiAssets` 在本地成功完成，生成资源目录包含 `interface.json`、任务和 Pipeline。
-- 下一轮 CI 将验证带资源 APK 的完整构建。
+- `pi-profile.yaml` 已接入宿主构建，`PI_PROFILE=... ./gradlew :app:syncPiAssets` 在本地成功完成。
+- `alas-domain` 已通过 `tools/integrate-domain-module.sh` 接入宿主构建；本地 `:alas-domain:test` 的 2 个测试全部通过。
+- 本次尚未重新构建 APK，APK 构建仍按手动 checkpoint 执行。
 
 ## 尚未验收
 

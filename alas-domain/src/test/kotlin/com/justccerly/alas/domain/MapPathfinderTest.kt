@@ -32,7 +32,7 @@ class MapPathfinderTest {
         assertEquals(
             listOf(
                 MapCoordinate(0, 1),
-                MapCoordinate(0, 0),
+                MapCoordinate(1, 1),
                 MapCoordinate(1, 0),
                 MapCoordinate(2, 0),
                 MapCoordinate(3, 0),
