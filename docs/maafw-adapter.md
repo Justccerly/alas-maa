@@ -23,6 +23,8 @@
 
 动作计划还可以通过 `MapActionPipelineEncoder` 编码为 Pipeline override。资源包预置了 `AlasMapAction` 入口节点；编码器复用该入口并追加 `AlasMapAction.1`、`AlasMapAction.2` 等后续 Click 节点。宿主应把编码结果作为该任务的有序 `pipelineOverrides` 项提交，不能把它当作新的 Task entry。
 
+`resources/replays/map-action-plan.json` 同时保存预期的 Pipeline 节点链，CI 会重新生成并比较该结构，检查入口、固定坐标、延迟和 `next` 连续性。
+
 下一步接入需要在宿主或 native bridge 中完成：
 
 1. 按 v5.9.2 头文件核对自定义 Action/Recognition 的完整 C ABI 签名。

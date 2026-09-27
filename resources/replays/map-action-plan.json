@@ -3,5 +3,18 @@
   "actions": [
     {"x": 100, "y": 200, "coordinateX": 1, "coordinateY": 0, "postDelayMs": 150},
     {"x": 150, "y": 200, "coordinateX": 2, "coordinateY": 0, "postDelayMs": 200}
-  ]
+  ],
+  "expectedPipeline": {
+    "AlasMapAction": {
+      "action": "Click",
+      "target": [100, 200],
+      "post_delay": 150,
+      "next": ["AlasMapAction.1"]
+    },
+    "AlasMapAction.1": {
+      "action": "Click",
+      "target": [150, 200],
+      "post_delay": 200
+    }
+  }
 }
