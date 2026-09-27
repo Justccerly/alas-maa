@@ -37,10 +37,10 @@ python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
 ## 构建结果
 
 - MaaFramework v5.9.2 arm64 release 已下载、ZIP 校验并部署成功。
-- GitHub Actions 运行 `36254073824` 在 `ubuntu-24.04` x86_64 runner 上完成 SDK 安装、native 部署、`assembleDebug` 和 APK 上传。
-- Debug APK 产物 `alas-maa-host-baseline-debug` 已生成，大小约 53 MB。
+- GitHub Actions 最新运行 `36283361482` 在 `ubuntu-24.04` x86_64 runner 上完成资源校验、native 部署、`assembleDebug` 和 APK 上传。
+- Debug APK 产物 `alas-maa-host-baseline-debug` 已生成，Artifact ID 为 `10919283791`，大小约 53 MB。
 - 本地仍不能构建，原因是当前主机为 `aarch64`，SDK 的 `aidl` 是 `x86_64` ELF。
-- Project Interface V2 资源骨架已落盘，并通过 `tools/validate-resources.sh` 校验。
+- Project Interface V2 资源骨架和地图回放夹具已通过 CI 校验。
 - `pi-profile.yaml` 已接入宿主构建，`PI_PROFILE=... ./gradlew :app:syncPiAssets` 在本地成功完成，生成资源目录包含 `interface.json`、任务和 Pipeline。
 - 下一轮 CI 将验证带资源 APK 的完整构建。
 

@@ -21,9 +21,10 @@
     "phase": "M0-baseline-complete",
     "nativeArtifacts": "ready",
     "build": "github-actions-debug-apk-passed",
-    "ciRun": "36254073824",
-    "ciCommit": "397019d639b256e841632f3f388c14d4f546f3b2",
+    "ciRun": "36283361482",
+    "ciCommit": "fb7601678fe6741daf162339420764a85bcdb554",
     "artifact": "alas-maa-host-baseline-debug",
+    "artifactId": "10919283791",
     "lastChecked": "2026-09-26"
   }
 }
