@@ -29,6 +29,8 @@ Current slice:
   cost, tap count, and target details for logs and failure reports.
 - `MapRouteReportCodec` serializes found and unreachable results into stable
   JSON for host logs and replay artifacts.
+- `MapRouteRequestCodec` serializes the complete route-planning input so a
+  replay does not require test code to reconstruct parameters.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

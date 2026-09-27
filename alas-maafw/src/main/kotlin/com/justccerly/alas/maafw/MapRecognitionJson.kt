@@ -52,6 +52,12 @@ object MapRecognitionJson {
         return MapRecognitionAdapter.toSnapshot(payload.width, payload.height, cells)
     }
 
+    fun decodeDocument(document: String): MapRecognitionDocument =
+        json.decodeFromString(document)
+
+    fun encodeDocument(document: MapRecognitionDocument): String =
+        json.encodeToString(document)
+
     private fun parseKind(raw: String?): GridKind = when (raw?.trim()?.lowercase()) {
         "sea", "water" -> GridKind.SEA
         "land" -> GridKind.LAND

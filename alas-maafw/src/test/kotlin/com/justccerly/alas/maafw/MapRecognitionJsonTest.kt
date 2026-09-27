@@ -111,8 +111,42 @@ class MapRecognitionJsonTest {
         )
 
         assertEquals(
-            "{\"status\":\"FOUND\",\"diagnostics\":{\"mapWidth\":2,\"mapHeight\":1,\"observedCells\":2,\"unknownCells\":0,\"blockedCells\":0,\"fleetPosition\":{\"x\":0,\"y\":0},\"target\":{\"x\":1,\"y\":0},\"movementPoints\":1,\"pathCost\":1,\"tapCount\":1},\"path\":[{\"x\":0,\"y\":0},{\"x\":1,\"y\":0}]}"
+            "{\"status\":\"FOUND\",\"diagnostics\":{\"mapWidth\":2,\"mapHeight\":1,\"observedCells\":2,\"unknownCells\":0,\"blockedCells\":0,\"fleetPosition\":{\"x\":0,\"y\":0},\"target\":{\"x\":1,\"y\":0},\"movementPoints\":1,\"pathCost\":1,\"tapCount\":1},\"path\":[{\"x\":0,\"y\":0},{\"x\":1,\"y\":0}]}" ,
             MapRouteReportCodec.encode(result),
         )
     }
+
+    @Test
+    fun routeRequestCodecReplaysTheWholePlanningInput() {
+        val request = MapRouteRequest(
+            recognition = MapRecognitionRequestFixture.document(),
+            fleetX = 0,
+            fleetY = 0,
+            movementPoints = 2,
+            targetX = 2,
+            targetY = 0,
+            originX = 100,
+            originY = 200,
+            cellWidth = 50,
+            cellHeight = 40,
+        )
+
+        val result = MapRoutePlanner().planRequest(MapRouteRequestCodec.encode(request))
+
+        val found = assertIs<MapRoutePlanResult.Found>(result)
+        assertEquals(2, found.path.path.totalCost)
+        assertEquals(2, found.diagnostics.tapCount)
+    }
+}
+
+private object MapRecognitionRequestFixture {
+    fun document() = MapRecognitionDocument(
+        width = 3,
+        height = 1,
+        cells = listOf(
+            MapRecognitionCell(0, 0, "sea"),
+            MapRecognitionCell(1, 0, "sea"),
+            MapRecognitionCell(2, 0, "sea"),
+        ),
+    )
 }

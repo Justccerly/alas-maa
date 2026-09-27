@@ -33,6 +33,10 @@
 
 使用 `MapRouteReportCodec.encode` 可将成功路线或不可达原因编码为稳定 JSON，适合随运行日志保存。
 
+使用 `MapRouteRequestCodec` 可以保存完整规划输入：识别地图、舰队位置、目标、屏幕网格几何、置信度阈值和敌方格策略都在同一份 JSON 中。
+
+示例请求见 `resources/replays/map-route-request.json`。
+
 下一步接入需要在宿主或 native bridge 中完成：
 
 1. 按 v5.9.2 头文件核对自定义 Action/Recognition 的完整 C ABI 签名。

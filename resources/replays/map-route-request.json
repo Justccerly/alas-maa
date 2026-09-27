@@ -1,0 +1,23 @@
+{
+  "recognition": {
+    "width": 3,
+    "height": 1,
+    "cells": [
+      {"x": 0, "y": 0, "kind": "sea"},
+      {"x": 1, "y": 0, "kind": "sea"},
+      {"x": 2, "y": 0, "kind": "sea"}
+    ]
+  },
+  "fleetX": 0,
+  "fleetY": 0,
+  "movementPoints": 2,
+  "targetX": 2,
+  "targetY": 0,
+  "originX": 100,
+  "originY": 200,
+  "cellWidth": 50,
+  "cellHeight": 40,
+  "minimumConfidence": 0.9,
+  "allowEnemyGrid": false,
+  "entry": "AlasMapAction"
+}

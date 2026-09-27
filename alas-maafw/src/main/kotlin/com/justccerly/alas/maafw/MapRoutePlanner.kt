@@ -38,6 +38,19 @@ data class MapRouteDiagnostics(
 class MapRoutePlanner(
     private val pathfinder: MapPathfinder = MapPathfinder(),
 ) {
+    fun plan(request: MapRouteRequest): MapRoutePlanResult = plan(
+        recognitionJson = MapRecognitionJson.encodeDocument(request.recognition),
+        fleet = request.fleet(),
+        target = request.target(),
+        geometry = request.geometry(),
+        minimumConfidence = request.minimumConfidence,
+        allowEnemyGrid = request.allowEnemyGrid,
+        entry = request.entry,
+    )
+
+    fun planRequest(document: String): MapRoutePlanResult =
+        plan(MapRouteRequestCodec.decode(document))
+
     fun plan(
         recognitionJson: String,
         fleet: FleetState,
