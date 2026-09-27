@@ -10,6 +10,9 @@
 - 架构：`arm64-v8a`
 - 产物：`alas-maa-host-baseline-debug`
 
-截至最新运行 `36283361482`，CI 已通过 Project Interface 资源校验、地图回放夹具校验、宿主构建和 APK 上传。产物约 53 MB。该结果验证的是宿主构建链和资源输入，不代表真机截图、输入或 OCR 已验收。
+CI 分为两层：
 
-资源包校验由 `tools/validate-resources.sh` 执行；`pi-profile.yaml` 已接入 MaaFwApp，使用 `PI_PROFILE=... ./gradlew :app:syncPiAssets` 可生成包含当前资源的构建输入。带资源 APK 已由最新 CI 运行验证。
+- 每次 push / Pull Request：只运行资源 JSON、Project Interface 和地图回放夹具校验，通常约几分钟内完成。
+- APK 构建：仅在 GitHub Actions 页面手动执行 `workflow_dispatch`，或提交信息包含 `[build-apk]` 时执行。只有需要安装测试、宿主改动或里程碑验收时才触发。
+
+手动构建完成后，产物名为 `alas-maa-host-baseline-debug`。
