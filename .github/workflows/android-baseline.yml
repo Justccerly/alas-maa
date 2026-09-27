@@ -45,6 +45,8 @@ jobs:
 
       - name: Validate Project Interface resources
         run: ./tools/validate-resources.sh
+      - name: Validate domain replay fixtures
+        run: python3 tools/validate-domain-fixtures.py
       - name: Fetch pinned MaaFwApp host
         shell: bash
         run: |

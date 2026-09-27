@@ -25,4 +25,4 @@
 
 M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/baseline.md)。本地上游源码位于 `upstream/MaaFwApp`，该目录被 `.gitignore` 排除，版本通过 `baseline.json` 锁定。
 
-当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架和首个 OCR 启动检查已落盘。真机控制、截图、模板识别和 OCR 尚未完成验收。
+当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架、首个 OCR 启动检查和 Alas Domain 地图路径切片已落盘。真机控制、截图、模板识别和 OCR 尚未完成验收。

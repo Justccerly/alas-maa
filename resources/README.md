@@ -11,4 +11,6 @@ Current package layout:
 - `maps/`: map definitions and replay fixtures
 - `game-data/`: versioned game and task data
 
+`resources/maps/blocked-route.json` is the first deterministic map replay fixture. `alas-domain/` contains the platform-independent Kotlin model and pathfinder that will consume this kind of snapshot.
+
 `tools/validate-resources.sh` checks JSON syntax, PI imports, resource paths, and task-to-Pipeline entry points. Do not place Android UI code or device-control code here.

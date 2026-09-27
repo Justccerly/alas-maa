@@ -27,5 +27,9 @@ recordings/
 # Local upstream checkout and downloaded native artifacts
 upstream/
 
+# Python
+__pycache__/
+*.py[cod]
+
 # Generated resources
 resources/generated/
