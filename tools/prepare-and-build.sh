@@ -13,6 +13,7 @@ export PI_PROFILE="$ROOT_DIR/pi-profile.yaml"
 cd "$ROOT_DIR"
 ./tools/integrate-domain-module.sh "$MAA_APP"
 ./tools/integrate-maafw-recognition.sh "$MAA_APP"
+./tools/check-maafw-recognition-integration.sh "$MAA_APP"
 cd "$MAA_APP"
 python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
 ./gradlew :app:assembleDebug

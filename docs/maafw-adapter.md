@@ -2,7 +2,7 @@
 
 ## 已确认的运行时事实
 
-CI/本地构建会运行 `tools/integrate-maafw-recognition.sh`，向 MaaFwApp 注入已核对的 JNA 声明、回调实现和资源注册调用。
+CI/本地构建会运行 `tools/integrate-maafw-recognition.sh` 和 `tools/check-maafw-recognition-integration.sh`，向 MaaFwApp 注入并检查已核对的 JNA 声明、回调实现和资源注册调用。
 
 本地 MaaFramework `v5.9.2` arm64 库导出了以下能力：
 
