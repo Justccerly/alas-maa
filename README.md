@@ -33,6 +33,7 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 
 - `MapRecognitionAdapter`：识别语义 → `MapSnapshot`
 - `MapRecognitionJson`：可回放 JSON → 识别语义，支持置信度过滤
+- `MaaMapRecognitionCallbackCodec`：MaaFramework 自定义识别回调 out_detail/out_box → 地图识别输入
 - `MapActionPlanner`：路径 → 屏幕点击动作
 - `MapActionPlanCodec`：动作计划 → 宿主可消费的 JSON
 - `MapActionExecutor`：通过宿主提供的 `TapSink` 执行点击计划

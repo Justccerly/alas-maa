@@ -10,6 +10,8 @@ Current slice:
   `RecognizedMap` and then `MapSnapshot`.
 - `MapRecognitionJson` decodes replayable JSON emitted by an OCR/template/custom
   recognition bridge, with optional confidence filtering.
+- `MaaMapRecognitionCallbackCodec` decodes the versioned `out_detail` payload
+  and `MaaRect` bounds returned by the MaaFramework custom recognition ABI.
 - `MapActionPlanner` converts a found domain path into deterministic screen tap
   actions using a supplied grid geometry.
 - `MapActionExecutor` sends those actions through a host-provided `TapSink` and

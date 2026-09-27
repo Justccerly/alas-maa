@@ -247,6 +247,32 @@ class MapRecognitionJsonTest {
             )
         }
     }
+
+    @Test
+    fun decodesMaaCustomRecognitionCallbackOutputsIntoRouteInput() {
+        val map = MapRecognitionRequestFixture.document()
+        val callbackResult = MaaMapRecognitionCallbackCodec.decode(
+            box = MaaRecognitionBox(x = 20, y = 30, width = 150, height = 40),
+            detailJson = MaaMapRecognitionCallbackCodec.encodeDetail(map),
+        )
+
+        assertEquals(MaaRecognitionBox(20, 30, 150, 40), callbackResult.box)
+        assertEquals(map, MapRecognitionJson.decodeDocument(
+            MaaMapRecognitionCallbackCodec.toRecognitionJson(callbackResult),
+        ))
+    }
+
+    @Test
+    fun rejectsUnknownCustomRecognitionDetailSchema() {
+        assertFailsWith<IllegalArgumentException> {
+            MaaMapRecognitionCallbackCodec.decode(
+                MaaRecognitionBox(0, 0, 10, 10),
+                """
+                {"schema":"future.schema","map":{"width":1,"height":1,"cells":[]}}
+                """.trimIndent(),
+            )
+        }
+    }
 }
 
 private object MapRecognitionRequestFixture {
