@@ -68,6 +68,9 @@ class MapRecognitionJsonTest {
         assertEquals(2, found.path.path.totalCost)
         assertEquals("AlasMapAction", found.runtime.entry)
         assertEquals(1, found.runtime.pipelineOverrides.size)
+        assertEquals(3, found.diagnostics.observedCells)
+        assertEquals(2, found.diagnostics.pathCost)
+        assertEquals(2, found.diagnostics.tapCount)
     }
 
     @Test
@@ -87,6 +90,8 @@ class MapRecognitionJsonTest {
             minimumConfidence = 0.9,
         )
 
-        assertIs<MapRoutePlanResult.Unreachable>(result)
+        val unreachable = assertIs<MapRoutePlanResult.Unreachable>(result)
+        assertEquals(1, unreachable.diagnostics.observedCells)
+        assertEquals(2, unreachable.diagnostics.movementPoints)
     }
 }
