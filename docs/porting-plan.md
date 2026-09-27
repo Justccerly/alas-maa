@@ -198,8 +198,12 @@ alas-maa/
 - 权限不足时能给出明确状态
 - 任务日志能在 UI 和文件中同时查看
 
-### Phase 2: Alas 运行时抽象
+### 当前 M1 进展：识别语义到领域快照
+已完成第一条平台无关边界：`alas-domain` 提供 `RecognizedMap`、`RecognizedGrid` 和 `MapSnapshotMapper`。MaaFramework 适配层只需要把 OCR、模板匹配或自定义识别结果转换为识别语义；未知格默认不可通行，部分识别不会凭空补全网格，重复坐标和越界坐标会被拒绝。该边界已有 Kotlin/JVM 单元测试，并通过 MaaFwApp 宿主中的 `:alas-domain:test` 验证。
 
+下一步：实现 `alas-maafw` 适配层，将 MaaFramework 的识别输出转换为 `RecognizedMap`，并把 `PathResult.Found` 转换为可执行的 Pipeline 点击/滑动动作；在此之前不把真实地图识别宣称为已完成。
+
+### Phase 2: Alas 运行时抽象
 目标：把 Alas 原有设备依赖替换成稳定接口。
 
 需要建立的接口：
