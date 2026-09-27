@@ -86,4 +86,41 @@ class MapAdapterTest {
             MapActionPlanCodec.encode(plan),
         )
     }
+
+    @Test
+    fun executorSendsTapsInPlanOrderAndHonorsDelays() {
+        val points = mutableListOf<ScreenPoint>()
+        val delays = mutableListOf<Int>()
+        val plan = MapActionPlan(
+            status = ActionPlanStatus.FOUND,
+            totalCost = 2,
+            actions = listOf(
+                PlannedTap(10, 20, 1, 0, 25),
+                PlannedTap(30, 40, 2, 0, 50),
+            ),
+        )
+
+        val result = MapActionExecutor(
+            tapSink = TapSink { points += it },
+            delay = ActionDelay { delays += it },
+        ).execute(plan)
+
+        assertEquals(ActionExecutionResult(ActionPlanStatus.FOUND, 2), result)
+        assertEquals(listOf(ScreenPoint(10, 20), ScreenPoint(30, 40)), points)
+        assertEquals(listOf(25, 50), delays)
+    }
+
+    @Test
+    fun executorDoesNotTouchAnUnreachablePlan() {
+        var tapCount = 0
+        val result = MapActionExecutor(TapSink { tapCount += 1 }).execute(
+            MapActionPlan(
+                status = ActionPlanStatus.UNREACHABLE,
+                reason = "missing target",
+            ),
+        )
+
+        assertEquals(ActionExecutionResult(ActionPlanStatus.UNREACHABLE, 0, "missing target"), result)
+        assertEquals(0, tapCount)
+    }
 }

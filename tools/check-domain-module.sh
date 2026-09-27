@@ -27,6 +27,7 @@ check test -d "$ADAPTER_DIR/src/main/kotlin"
 check test -d "$ADAPTER_DIR/src/test/kotlin"
 check grep -R -q 'class MapAdapterTest' "$ADAPTER_DIR/src/test/kotlin"
 check grep -R -q 'MapActionPlanner' "$ADAPTER_DIR/src/main/kotlin"
+check grep -R -q 'class MapActionExecutor' "$ADAPTER_DIR/src/main/kotlin"
 
 if test "$failures" -ne 0; then
     printf 'Domain module check failed: %s check(s) failed.\n' "$failures"

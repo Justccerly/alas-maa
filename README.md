@@ -35,8 +35,9 @@ M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/basel
 - `MapRecognitionJson`：可回放 JSON → 识别语义，支持置信度过滤
 - `MapActionPlanner`：路径 → 屏幕点击动作
 - `MapActionPlanCodec`：动作计划 → 宿主可消费的 JSON
+- `MapActionExecutor`：通过宿主提供的 `TapSink` 执行点击计划
 
-识别回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
+识别回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。动作执行通过 `TapSink` 隔离，测试可以使用记录器，Android 宿主再接入实际 MaaFramework 输入通道。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
 
 ## 开发和验证
 

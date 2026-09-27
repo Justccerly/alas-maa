@@ -12,6 +12,8 @@ Current slice:
   recognition bridge, with optional confidence filtering.
 - `MapActionPlanner` converts a found domain path into deterministic screen tap
   actions using a supplied grid geometry.
+- `MapActionExecutor` sends those actions through a host-provided `TapSink` and
+  keeps delay handling injectable for replay tests.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

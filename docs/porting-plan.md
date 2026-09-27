@@ -216,6 +216,7 @@ alas-maa/
 - [x] 将领域路径转换为确定性的地图点击动作计划
 - [x] 增加识别语义 JSON 解码与置信度过滤
 - [x] 增加识别回放夹具和 CI 格式校验
+- [x] 增加可注入的地图点击执行边界
 - [ ] 将 MaaFramework 的 OCR、模板匹配和自定义识别结果解析为 `RecognizedMap`
 - [ ] 将 `PathResult.Found` 转换为 Pipeline 点击/滑动动作
 - [ ] 接入真实截图回放测试
