@@ -45,6 +45,9 @@ object MapActionPlanCodec {
     private val json = Json { explicitNulls = false }
 
     fun encode(plan: MapActionPlan): String = json.encodeToString(plan)
+
+    /** Decodes a plan received from a recorder or host boundary. */
+    fun decode(document: String): MapActionPlan = json.decodeFromString(document)
 }
 
 fun TapAction.toPlannedTap(): PlannedTap = PlannedTap(

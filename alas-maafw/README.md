@@ -14,6 +14,8 @@ Current slice:
   actions using a supplied grid geometry.
 - `MapActionExecutor` sends those actions through a host-provided `TapSink` and
   keeps delay handling injectable for replay tests.
+- `MapActionPlanCodec` encodes and decodes the same plan format for host logging
+  and replay.
 - Tests cover duplicate observations, unknown cells, bounds, and action output.
 
 The Android/MaaFramework callback layer can feed these classes after it parses

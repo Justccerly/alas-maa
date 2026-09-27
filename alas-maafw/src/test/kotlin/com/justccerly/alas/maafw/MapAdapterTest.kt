@@ -123,4 +123,14 @@ class MapAdapterTest {
         assertEquals(ActionExecutionResult(ActionPlanStatus.UNREACHABLE, 0, "missing target"), result)
         assertEquals(0, tapCount)
     }
+
+    @Test
+    fun actionPlanCodecRoundTripsAPlan() {
+        val original = MapActionPlan(
+            status = ActionPlanStatus.UNREACHABLE,
+            reason = "target not observed",
+        )
+
+        assertEquals(original, MapActionPlanCodec.decode(MapActionPlanCodec.encode(original)))
+    }
 }
