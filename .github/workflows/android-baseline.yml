@@ -25,6 +25,8 @@ jobs:
         run: ./tools/validate-resources.sh
       - name: Validate domain replay fixtures
         run: python3 tools/validate-domain-fixtures.py
+      - name: Validate recognition replay fixtures
+        run: python3 tools/validate-recognition-fixtures.py
       - name: Validate Alas Domain module structure
         run: ./tools/check-domain-module.sh
       - name: Validate JSON documents
@@ -88,7 +90,7 @@ jobs:
           printf 'pi.profile=%s/pi-profile.yaml\n' "$GITHUB_WORKSPACE" >> local.properties
       - name: Run Alas Domain unit tests
         working-directory: upstream/MaaFwApp
-        run: ./gradlew :alas-domain:test --no-daemon
+        run: ./gradlew :alas-domain:test :alas-maafw:test --no-daemon
       - name: Assemble debug APK
         working-directory: upstream/MaaFwApp
         run: ./gradlew :app:assembleDebug --no-daemon -x :app:checkDebugAarMetadata

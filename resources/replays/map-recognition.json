@@ -1,0 +1,12 @@
+{
+  "width": 3,
+  "height": 2,
+  "cells": [
+    {"x": 0, "y": 0, "kind": "sea", "confidence": 0.99},
+    {"x": 1, "y": 0, "kind": "sea", "confidence": 0.97},
+    {"x": 2, "y": 0, "kind": "obstacle", "confidence": 0.95},
+    {"x": 0, "y": 1, "kind": "unknown", "confidence": 0.44},
+    {"x": 1, "y": 1, "kind": "sea", "traversable": true, "confidence": 0.92},
+    {"x": 2, "y": 1, "kind": "sea", "occupiedByEnemy": true, "confidence": 0.91}
+  ]
+}

@@ -197,11 +197,39 @@ alas-maa/
 - 后台模式可以启动和停止任务
 - 权限不足时能给出明确状态
 - 任务日志能在 UI 和文件中同时查看
+### 当前进度（截至最近一次本地与 CI 校验）
+为避免把“领域契约已完成”和“真机识别已完成”混为一谈，当前地图切片按以下状态记录：
 
-### 当前 M1 进展：识别语义到领域快照
-已完成第一条平台无关边界：`alas-domain` 提供 `RecognizedMap`、`RecognizedGrid` 和 `MapSnapshotMapper`。MaaFramework 适配层只需要把 OCR、模板匹配或自定义识别结果转换为识别语义；未知格默认不可通行，部分识别不会凭空补全网格，重复坐标和越界坐标会被拒绝。该边界已有 Kotlin/JVM 单元测试，并通过 MaaFwApp 宿主中的 `:alas-domain:test` 验证。
+#### 已完成
+- [x] `alas-domain` 接入 MaaFwApp 的 Gradle 构建
+- [x] 创建 `alas-maafw` 最小适配模块并接入 MaaFwApp Gradle 构建
+- [x] 建立 `RecognizedGrid` / `RecognizedMap` 识别语义模型
+- [x] 实现 `MapSnapshotMapper`：识别语义 → `MapSnapshot`
+- [x] 对未知格采用不可通行默认值，不凭空补全部分观察中的缺失格
+- [x] 拒绝重复坐标、越界坐标和非法移动成本
+- [x] 为映射契约补充 Kotlin/JVM 单元测试，并通过宿主 `:alas-domain:test`
+- [x] 通过领域结构检查、夹具校验和资源校验
+- [x] 轻量 CI 校验通过；当前策略下未因领域模块变更触发 APK 构建
 
-下一步：实现 `alas-maafw` 适配层，将 MaaFramework 的识别输出转换为 `RecognizedMap`，并把 `PathResult.Found` 转换为可执行的 Pipeline 点击/滑动动作；在此之前不把真实地图识别宣称为已完成。
+#### 当前未完成
+- [x] 创建并接入 `alas-maafw` 适配模块
+- [x] 将领域路径转换为确定性的地图点击动作计划
+- [x] 增加识别语义 JSON 解码与置信度过滤
+- [x] 增加识别回放夹具和 CI 格式校验
+- [ ] 将 MaaFramework 的 OCR、模板匹配和自定义识别结果解析为 `RecognizedMap`
+- [ ] 将 `PathResult.Found` 转换为 Pipeline 点击/滑动动作
+- [ ] 接入真实截图回放测试
+- [ ] 构建 APK 并在真机验证启动、地图识别和地图操作闭环
+
+#### 下一步执行顺序
+1. 先确认当前 MaaFramework 版本中 OCR、模板、自定义识别和 Pipeline 动作的实际 API。
+2. 创建 `alas-maafw` 的最小适配骨架，并以单元测试覆盖识别结果映射和动作规划。
+3. 将适配层接入 MaaFwApp，运行 `:alas-domain:test` 与适配层测试。
+4. 准备固定截图/回放夹具，再构建阶段性 APK 做真机验证。
+
+**边界声明：** 当前只完成了“识别语义 → 领域快照”的平台无关契约，不代表真实游戏地图识别、Pipeline 操作或真机地图流程已经完成。
+
+
 
 ### Phase 2: Alas 运行时抽象
 目标：把 Alas 原有设备依赖替换成稳定接口。
@@ -264,7 +292,9 @@ interface TaskRuntime {
 - [x] 实现确定性四方向 A*，支持障碍、移动代价、敌方格和移动点限制
 - [x] 建立首个地图回放夹具和 CI 校验
 - [x] 接入 MaaFwApp 的 Gradle JVM 模块并运行 `:alas-domain:test`
-- [ ] 将 MaaFramework 识别结果转换为 `MapSnapshot`
+- [x] 建立识别语义到 `MapSnapshot` 的领域映射契约
+- [ ] 将 MaaFramework 实际识别结果转换为 `RecognizedMap`
+- [ ] 将路径结果转换为 Pipeline 点击/滑动动作
 任务：
 
 - 海图识别结果模型

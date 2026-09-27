@@ -25,4 +25,19 @@
 
 M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/baseline.md)。本地上游源码位于 `upstream/MaaFwApp`，该目录被 `.gitignore` 排除，版本通过 `baseline.json` 锁定。
 
-当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架、ADB 启动游戏任务和已接入宿主的 Alas Domain 地图路径模块与识别语义快照映射已落盘。真机控制、截图、模板识别和 OCR 尚未完成验收。
+当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架、ADB 启动游戏任务、Alas Domain 地图路径模块和 `alas-maafw` 适配模块已落盘。适配模块目前可以将识别语义或 JSON 回放转换为 `MapSnapshot`，并把路径结果转换成可序列化的点击计划。真实 MaaFramework OCR/模板回调、设备输入和真机地图流程仍未完成验收。详细进度、已完成项和下一步顺序见 [移植规划](docs/porting-plan.md)。
+
+## 当前开发切片
+
+`alas-maafw` 位于 [alas-maafw](alas-maafw)，保持 Android 和 MaaFramework native handle 不进入领域层：
+
+- `MapRecognitionAdapter`：识别语义 → `MapSnapshot`
+- `MapRecognitionJson`：可回放 JSON → 识别语义，支持置信度过滤
+- `MapActionPlanner`：路径 → 屏幕点击动作
+- `MapActionPlanCodec`：动作计划 → 宿主可消费的 JSON
+
+识别回放夹具位于 [resources/replays](resources/replays)，资源和夹具校验由 CI 执行。当前还没有真实游戏截图，因此动作几何参数仍需通过目标设备截图标定。
+
+## 开发和验证
+
+在具备 Java 17、Android SDK 和网络访问的环境中，CI 会依次执行资源校验、地图/识别回放校验、`alas-domain` 与 `alas-maafw` 单元测试，并按条件构建 Debug APK。当前 Termux 终端没有 Java，不能在本地执行 Gradle 测试。
