@@ -6,9 +6,11 @@ HOST_DIR="${1:-$ROOT_DIR/upstream/MaaFwApp}"
 LIB="$HOST_DIR/app/src/main/java/com/aliothmoon/maafw/maa/MaaFrameworkLibrary.kt"
 RUNNER="$HOST_DIR/app/src/main/java/com/aliothmoon/maafw/remote/MaaRunner.kt"
 CALLBACK="$HOST_DIR/app/src/main/java/com/aliothmoon/maafw/remote/AlasCustomRecognition.kt"
+SINK="$HOST_DIR/app/src/main/java/com/aliothmoon/maafw/remote/AlasDecisionFileSink.kt"
+SERVICE="$HOST_DIR/app/src/main/java/com/aliothmoon/maafw/remote/RemoteServiceImpl.kt"
 PIPELINE="$ROOT_DIR/resources/resource/base/pipeline/map_action.json"
 
-for path in "$LIB" "$RUNNER" "$CALLBACK" "$PIPELINE"; do
+for path in "$LIB" "$RUNNER" "$CALLBACK" "$SINK" "$SERVICE" "$PIPELINE"; do
     test -f "$path" || { printf '[!!] missing %s\n' "$path" >&2; exit 1; }
 done
 
@@ -18,6 +20,15 @@ grep -Fq 'fun MaaStringBufferSet' "$LIB"
 grep -Fq 'MaaResourceRegisterCustomRecognition(res, AlasCustomRecognition.NAME' "$RUNNER"
 grep -Fq 'const val NAME = "AlasMapRecognition"' "$CALLBACK"
 grep -Fq 'MaaMapRecognitionCallbackCodec.decodeRequest' "$CALLBACK"
+# The decision sink must be reachable from the callback and installed before registration,
+# otherwise a device run records nothing and the failure is silent.
+grep -Fq 'AlasRecognitionDecisionLog.request' "$CALLBACK"
+grep -Fq 'AlasRecognitionDecisionLog.result' "$CALLBACK"
+grep -Fq 'AlasRecognitionDecisionLog.failure' "$CALLBACK"
+grep -Fq 'AlasDecisionSinkHolder.sink' "$CALLBACK"
+# Installed from setup(): that is the only place the privileged process learns a writable
+# logDir. Reading AppPaths here would be an uninitialised lateinit in that process.
+grep -Fq 'AlasDecisionFileSink.install(logDir)' "$SERVICE"
 
 python3 - "$PIPELINE" <<'PY'
 import json

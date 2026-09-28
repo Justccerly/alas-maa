@@ -1,0 +1,48 @@
+{
+  "name": "game-download-1280x720",
+  "image": "game-download-1280x720.png",
+  "source": {
+    "kind": "device-screenshot",
+    "device": "MuMu Player 15.0 (Android 15)",
+    "capturedAt": "2026-09-28",
+    "note": "碧蓝航线首次启动的资源下载界面；真实设备输出，非合成图"
+  },
+  "width": 1280,
+  "height": 720,
+  "sha256": "08841d2da97d166f0e49dbfb15dc02c59add1ce023c4bdbdb98ab39820343fb0",
+  "regions": [
+    {
+      "name": "title",
+      "box": {
+        "x": 60,
+        "y": 190,
+        "width": 600,
+        "height": 220
+      },
+      "note": "服务器/阵营标题区，后续模板识别目标",
+      "meanRgb": [
+        130.54,
+        141.69,
+        134.42
+      ]
+    },
+    {
+      "name": "progress",
+      "box": {
+        "x": 0,
+        "y": 660,
+        "width": 1280,
+        "height": 60
+      },
+      "note": "下载进度条区，用于识别“正在下载”状态",
+      "meanRgb": [
+        79.35,
+        78.8,
+        78.34
+      ]
+    }
+  ],
+  "expected": {
+    "kind": "game-download"
+  }
+}

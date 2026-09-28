@@ -225,16 +225,18 @@ alas-maa/
 - [x] 串联识别、寻路和 RuntimeTask 规格生成的离线规划器
 - [x] 将 MaaFramework Custom Recognition 的 `out_detail` 解析为可回放的 `RecognizedMap` 输入
 - [x] 将 `PathResult.Found` 转换为宿主 `RuntimeTaskPayload` 的 Pipeline 点击动作
-- [ ] 接入真实截图回放测试
-- [ ] 构建 APK 并在真机验证启动、地图识别和地图操作闭环
+- [x] 在真机验证 Custom Recognition 回调闭环（识别参数、out_box/out_detail 与夹具逐字段一致）
+- [x] 落盘 Alas 侧决策日志（宿主框架事件日志看不到识别与规划决策）
+- [x] 建立截图回放测试骨架（夹具格式、生成器、校验脚本、CI 门禁）
+- [ ] 用真实游戏画面替换回放参数，实现 OCR/模板或 native 地图格识别算法
 
 #### 下一步执行顺序
-1. 在 GitHub Actions x86_64 runner 上完成本次宿主桥接的 Kotlin/Android 编译。
-2. 用固定回放任务验证 MaaFramework Custom Recognition 回调能返回地图详情。
-3. 准备真实截图并替换回放参数，验证 OCR/模板或 native 地图格识别算法。
-4. 构建 APK 后在真机完成启动、地图识别、寻路和点击闭环。
+1. 采集主界面、地图界面等真实游戏画面，按 `tools/make-screenshot-fixture.py` 建立夹具。
+2. 在识别回调中实现真实地图格分类，输出 `MapRecognitionDocument`。
+3. 用截图夹具回放验证格子分类与坐标标定，替换固定 JSON 回放参数。
+4. 真机完成启动、地图识别、寻路和点击闭环。
 
-**边界声明：** 当前已完成 Custom Recognition 的 ABI 注册和固定 JSON 回放桥接，但回放仍使用预先提供的地图语义；真实游戏截图识别、坐标标定和真机地图流程仍未验收。
+**边界声明：** Custom Recognition 的 ABI 注册、真机回调闭环和 Alas 侧决策落盘已验收；截图回放骨架已建立但只有一张下载界面夹具，真实游戏画面上的地图格识别、坐标标定和地图点击闭环仍未验收。
 
 
 
@@ -482,13 +484,13 @@ M0 的完成标准：
 - [x] MaaFramework 版本固定
 - [x] MaaFwApp 基线完成评估
 - [x] Android arm64 Debug 构建通过（GitHub Actions）
-- [ ] Shizuku/Root 状态检测通过
-- [ ] 真实设备截图通过
-- [ ] 点击和滑动通过
-- [ ] 一个模板识别通过
-- [ ] 一个 OCR 识别通过
+- [ ] Shizuku/Root 状态检测通过（测试环境未装 Shizuku，也无 `su`）
+- [x] 真实设备截图通过（MuMu Player 15.0 / Android 15，截图链路已通）
+- [x] 点击和滑动通过（全屏点击与后台模式已在真机确认）
+- [ ] 一个模板识别通过（`resources/templates/` 仍为空）
+- [ ] 一个 OCR 识别通过（`resources/game-data/` 仍为空）
 - [x] ADB 启动游戏 Pipeline 已建立（包名按服务器选项覆盖）
-- [ ] 截图回放测试骨架建立
-- [ ] 运行日志和错误截图落盘
+- [x] 截图回放测试骨架建立
+- [x] 运行日志和错误截图落盘（宿主已有运行日志与 SAVE_ON_ERROR；Alas 侧决策日志已补）
 
-M0 的宿主构建部分已完成。下一步是在真实 Android 设备上验证 `启动碧蓝航线` 的 ADB 启动行为，再将 MaaFramework 截图和识别结果转换为 `MapSnapshot`。
+M0 的宿主构建与真机运行部分已完成：任务可在设备上跑到 `Tasker.Task.Succeeded`，Custom Recognition 回调闭环已验收。下一步是采集真实游戏画面建立截图夹具，并在识别回调中实现真实地图格分类，替换当前的固定 JSON 回放参数。
