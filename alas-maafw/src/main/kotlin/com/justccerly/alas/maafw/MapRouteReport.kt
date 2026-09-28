@@ -44,7 +44,7 @@ object MapRouteReportCodec {
         is MapRoutePlanResult.Found -> MapRouteReport(
             status = MapRouteReportStatus.FOUND,
             diagnostics = diagnostics.toReport(),
-            path = path.path.coordinates.map(MapCoordinate::toReport),
+            path = path.path.coordinates.map { it.toReport() },
         )
 
         is MapRoutePlanResult.Unreachable -> MapRouteReport(

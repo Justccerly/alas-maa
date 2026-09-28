@@ -38,8 +38,10 @@ data class MapRouteRequest(
     fun target() = MapCoordinate(targetX, targetY)
     fun geometry() = MapGridGeometry(ScreenPoint(originX, originY), cellWidth, cellHeight)
 
-    private companion object {
-        val ENTRY_PATTERN = Regex("[A-Za-z0-9_.-]+")
+    // The serialization plugin puts serializer() on the companion, so it cannot be private:
+    // MapRouteRequestCodec lives outside this class and would hit IllegalAccessError at runtime.
+    companion object {
+        private val ENTRY_PATTERN = Regex("[A-Za-z0-9_.-]+")
     }
 }
 
