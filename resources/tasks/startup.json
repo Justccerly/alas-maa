@@ -41,7 +41,7 @@
         "diagnostic"
       ],
       "default_check": false,
-      "description": "通过 v5.9.2 Custom Recognition 回调回放固定地图识别结果，验证 out_box/out_detail 桥接。"
+      "description": "通过 v5.10.5 Custom Recognition 回调回放固定地图识别结果，验证 out_box/out_detail 桥接。"
     }
   ]
 }

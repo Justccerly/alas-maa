@@ -25,7 +25,7 @@
 
 M0 基线已建立，版本和构建前置条件见 [M0 基线记录](docs/baseline.md)。本地上游源码位于 `upstream/MaaFwApp`，该目录被 `.gitignore` 排除，版本通过 `baseline.json` 锁定。
 
-当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架、ADB 启动游戏任务、Alas Domain 地图路径模块和 `alas-maafw` 适配模块已落盘。适配模块目前可以将识别语义或 JSON 回放转换为 `MapSnapshot`，路径结果可转换为宿主 `RuntimeTaskPayload`，并已接入 v5.9.2 Custom Recognition 注册桥。真实 OCR/模板地图算法、设备输入和真机地图流程仍未完成验收。详细进度、已完成项和下一步顺序见 [移植规划](docs/porting-plan.md)。
+当前状态：M0 宿主基线已建立并通过 GitHub Actions Debug APK 构建验证；PI V2 资源骨架、ADB 启动游戏任务、Alas Domain 地图路径模块和 `alas-maafw` 适配模块已落盘。适配模块目前可以将识别语义或 JSON 回放转换为 `MapSnapshot`，路径结果可转换为宿主 `RuntimeTaskPayload`，并已接入 v5.10.5 Custom Recognition 注册桥。真实 OCR/模板地图算法、设备输入和真机地图流程仍未完成验收。详细进度、已完成项和下一步顺序见 [移植规划](docs/porting-plan.md)。
 
 ## 当前开发切片
 

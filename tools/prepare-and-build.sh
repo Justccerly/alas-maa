@@ -15,5 +15,5 @@ cd "$ROOT_DIR"
 ./tools/integrate-maafw-recognition.sh "$MAA_APP"
 ./tools/check-maafw-recognition-integration.sh "$MAA_APP"
 cd "$MAA_APP"
-python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
+python3 scripts/setup_maa_framework.py --tag v5.10.5 --abi arm64-v8a
 ./gradlew :app:assembleDebug

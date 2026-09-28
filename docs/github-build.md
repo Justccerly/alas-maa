@@ -6,7 +6,7 @@
 - Java：17
 - Android：API 36、Build Tools 36、NDK 28.2.13676358
 - MaaFwApp：`v0.1.0`，CI 临时将其 `compileSdk` 从 37 调整为 36，并跳过当前 runner 无法满足的 AAR metadata 检查；API 37 可用后应恢复严格构建
-- MaaFramework：`v5.9.2`
+- MaaFramework：`v5.10.5`
 - 架构：`arm64-v8a`
 - 产物：`alas-maa-host-baseline-debug`
 

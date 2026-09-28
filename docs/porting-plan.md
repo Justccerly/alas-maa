@@ -218,8 +218,8 @@ alas-maa/
 - [x] 增加识别回放夹具和 CI 格式校验
 - [x] 增加可注入的地图点击执行边界
 - [x] 增加动作计划 JSON 的编码、解码和回放测试
-- [x] 核对 v5.9.2 自定义 Action/Recognition 导出能力并记录宿主接入边界
-- [x] 通过集成脚本向 MaaFwApp 注入 v5.9.2 Custom Recognition JNA 声明和资源注册
+- [x] 核对 v5.10.5 自定义 Action/Recognition 导出能力并记录宿主接入边界
+- [x] 通过集成脚本向 MaaFwApp 注入 v5.10.5 Custom Recognition JNA 声明和资源注册
 - [x] 增加 `AlasMapRecognition` 固定回放任务，验证 `out_box` / `out_detail` 数据契约
 - [x] 将动作计划编码为 MaaTasker Pipeline override 的 Click 节点链
 - [x] 串联识别、寻路和 RuntimeTask 规格生成的离线规划器

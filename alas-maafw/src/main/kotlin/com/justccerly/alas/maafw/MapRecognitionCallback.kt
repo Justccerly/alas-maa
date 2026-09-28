@@ -17,7 +17,7 @@ data class MaaRecognitionBox(
 }
 
 /**
- * Decoded result of MaaFramework v5.9.2 `MaaCustomRecognitionCallback`.
+ * Decoded result of MaaFramework v5.10.5 `MaaCustomRecognitionCallback`.
  * `out_detail` carries the versioned map document while `out_box` carries the
  * screen-space map bounds. Keeping those outputs separate mirrors the C ABI.
  */

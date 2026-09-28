@@ -7,7 +7,7 @@ import com.justccerly.alas.maafw.MaaMapRecognitionCallbackCodec
 import com.justccerly.alas.maafw.MaaRecognitionBox
 import com.sun.jna.Pointer
 
-/** Replayable v5.9.2 Custom Recognition bridge for map recognition. */
+/** Replayable v5.10.5 Custom Recognition bridge for map recognition. */
 internal object AlasCustomRecognition {
     const val NAME = "AlasMapRecognition"
 

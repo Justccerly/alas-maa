@@ -7,10 +7,10 @@
   },
   "maaFramework": {
     "repository": "https://github.com/MaaXYZ/MaaFramework.git",
-    "release": "v5.9.2",
+    "release": "v5.10.5",
     "androidAbis": ["arm64-v8a", "x86_64"],
     "primaryAbi": "arm64-v8a",
-    "assetPattern": "MAA-android-aarch64-v5.9.2.zip"
+    "assetPattern": "MAA-android-aarch64-v5.10.5.zip"
   },
   "android": {
     "minSdk": 28,
@@ -20,11 +20,8 @@
   "status": {
     "phase": "M0-baseline-complete",
     "nativeArtifacts": "ready",
-    "build": "github-actions-debug-apk-passed",
-    "ciRun": "36283361482",
-    "ciCommit": "fb7601678fe6741daf162339420764a85bcdb554",
-    "artifact": "alas-maa-host-baseline-debug",
-    "artifactId": "10919283791",
-    "lastChecked": "2026-09-26"
+    "build": "local-and-github-actions-debug-apk-passed",
+    "deviceVerification": "mumu-android15-task-succeeded",
+    "lastChecked": "2026-09-28"
   }
 }

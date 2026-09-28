@@ -155,7 +155,7 @@ jobs:
         run: sed -i 's/internal const val COMPILE_SDK = 37/internal const val COMPILE_SDK = 36/' upstream/MaaFwApp/build-logic/convention/src/main/kotlin/com/aliothmoon/maafw/gradle/AndroidCommon.kt
       - name: Install MaaFramework Android runtime
         working-directory: upstream/MaaFwApp
-        run: python3 scripts/setup_maa_framework.py --tag v5.9.2 --abi arm64-v8a
+        run: python3 scripts/setup_maa_framework.py --tag v5.10.5 --abi arm64-v8a
       - name: Configure Android SDK path
         working-directory: upstream/MaaFwApp
         run: |
