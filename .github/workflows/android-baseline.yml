@@ -45,10 +45,67 @@ jobs:
               print(f'[ok] {path}')
           PY
 
+  # Compilation and unit tests run on every push and pull request. This job used to be
+  # part of assemble-debug, which is gated on [build-apk]: a broken module could then sit
+  # on main behind a green run whose APK job never executed. Nothing here needs the NDK or
+  # the MaaFramework release, so it stays cheap enough to run unconditionally.
+  test:
+    name: Compile and unit test
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out alas-maa
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          accept-android-sdk-licenses: false
+          packages: platform-tools
+      - name: Install Android build dependencies
+        shell: bash
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+      - name: Restore Gradle caches
+        uses: gradle/actions/setup-gradle@v4
+      - name: Fetch pinned MaaFwApp host
+        shell: bash
+        run: |
+          git clone --depth 1 --branch v0.1.0 https://github.com/Aliothmoon/MaaFwApp.git upstream/MaaFwApp
+          test "$(git -C upstream/MaaFwApp rev-parse HEAD)" = "5f5871095fde7a0af5a0171145f3c84d3e2eac18"
+      - name: Integrate Alas Domain Gradle module
+        run: ./tools/integrate-domain-module.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
+      - name: Integrate Alas Custom Recognition bridge
+        run: ./tools/integrate-maafw-recognition.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
+      - name: Check Alas Custom Recognition integration
+        run: ./tools/check-maafw-recognition-integration.sh "$GITHUB_WORKSPACE/upstream/MaaFwApp"
+      - name: Adapt host compile SDK to runner
+        run: sed -i 's/internal const val COMPILE_SDK = 37/internal const val COMPILE_SDK = 36/' upstream/MaaFwApp/build-logic/convention/src/main/kotlin/com/aliothmoon/maafw/gradle/AndroidCommon.kt
+      - name: Configure Android SDK path
+        working-directory: upstream/MaaFwApp
+        run: |
+          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
+          printf 'pi.profile=%s/pi-profile.yaml\n' "$GITHUB_WORKSPACE" >> local.properties
+      # testDebugUnitTest depends on compileDebugKotlin, so this covers compilation of the
+      # adapter module, the domain module and the host together.
+      - name: Run unit tests
+        working-directory: upstream/MaaFwApp
+        run: ./gradlew :alas-domain:test :alas-maafw:test :app:testDebugUnitTest --no-daemon -x :app:checkDebugAarMetadata
+
   assemble-debug:
     name: Build Android Debug APK
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[build-apk]')
-    needs: validate
+    needs: [validate, test]
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -96,9 +153,6 @@ jobs:
         run: |
           printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > local.properties
           printf 'pi.profile=%s/pi-profile.yaml\n' "$GITHUB_WORKSPACE" >> local.properties
-      - name: Run Alas Domain unit tests
-        working-directory: upstream/MaaFwApp
-        run: ./gradlew :alas-domain:test :alas-maafw:test --no-daemon
       - name: Assemble debug APK
         working-directory: upstream/MaaFwApp
         run: ./gradlew :app:assembleDebug --no-daemon -x :app:checkDebugAarMetadata
